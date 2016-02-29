@@ -1,0 +1,44 @@
+
+templates:
+  main: !template
+    attributes:
+      style: !style {}
+      mapDef1: !map
+        maxDpi: 300
+        width: 555
+        height: 400
+        default:
+          dpi: 300
+          rotation: 0
+          useAdjustBounds: true
+          layers:
+          - type: "geojson"
+            style: "point"
+            geoJson: "{}"
+      mapDef2: !map
+        maxDpi: 300
+        width: 1000
+        height: 500
+        default:
+          dpi: 300
+          rotation: 0
+          useAdjustBounds: true
+          layers:
+          - type: "geojson"
+            style: "point"
+            geoJson: "{}"
+    processors:
+    - !createMap
+      inputMapper: {mapDef1: map}
+      outputMapper: {mapSubReport: map1}
+    - !setStyle
+      inputMapper:
+        mapDef1: map
+    - !createMap
+      inputMapper: {mapDef2: map}
+      outputMapper:
+        mapSubReport: map2
+        mapContext: mapContext2
+    - !setStyle
+      inputMapper:
+        mapDef2: map

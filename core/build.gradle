@@ -1,0 +1,312 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+apply plugin: 'war'
+apply plugin: 'application'
+apply plugin: 'jetty'
+apply plugin: 'docker'
+
+defaultTasks 'build'
+
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+def appDir = new File(project.buildDir, "install")
+installApp.doFirst {
+    appDir.deleteDir()
+}
+tasks.withType(Javadoc) {
+    options.encoding = "utf-8"
+    title = "Mapfish Print Core Module $version"
+}
+task testCLI(type: Exec) {
+    dependsOn installApp
+    workingDir new File(appDir, "core/bin")
+    def cmd
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        cmd = ['cmd', '/c', 'print.bat']
+    } else {
+        cmd = ['./print']
+    }
+
+    File outputFile = new File(appDir, 'cliTestOutput.png')
+    File configFile = file('src/test/resources/org/mapfish/print/cli/config.yaml')
+    File v3ApiRequestFile = file('src/test/resources/org/mapfish/print/cli/v3Request.json')
+    cmd.addAll([
+            "-config", configFile.getAbsolutePath(),
+            "-spec", v3ApiRequestFile.getAbsolutePath(),
+            "-output", outputFile.getAbsolutePath()])
+    commandLine cmd
+
+    doFirst {
+        println("Testing CLI application: " + workingDir)
+        outputFile.delete();
+        assert !outputFile.exists()
+    }
+    doLast {
+        assert outputFile.exists()
+        assert outputFile.length() > 0
+    }
+}
+
+build.dependsOn tasks.distZip, tasks.testCLI
+
+configurations {
+    compile.transitive = true
+    compile.exclude module: 'jai_core'
+
+    metrics {
+        description = 'Libraries for measuring performance and load.  See http://metrics.codahale.com/'
+    }
+    geotools {
+        description = 'Geotools spatial libraries'
+    }
+    jasper {
+        description = 'Dependencies for the jasper reports generation'
+    }
+
+    //want to use the slf4j bridge instead
+    all*.exclude group: 'commons-logging'
+}
+
+dependencies {
+    def springSecurityVersion = "3.2.5.RELEASE"
+    def slf4jVersion = '1.7.6'
+
+    compile (
+            "org.springframework:spring-context:$project.springVersion",
+            "org.springframework:spring-web:$project.springVersion",
+            "org.springframework:spring-webmvc:$project.springVersion",
+            "org.springframework.security:spring-security-config:$springSecurityVersion",
+            "org.springframework.security:spring-security-web:$springSecurityVersion"
+    )
+    def metricsVersion = "3.0.2"
+    metrics (
+            "com.codahale.metrics:metrics-core:$metricsVersion",
+            "com.codahale.metrics:metrics-servlet:$metricsVersion",
+            "com.codahale.metrics:metrics-httpclient:$metricsVersion",
+            "com.codahale.metrics:metrics-servlets:$metricsVersion",
+            "com.codahale.metrics:metrics-jvm:$metricsVersion",
+            "com.codahale.metrics:metrics-logback:$metricsVersion",
+            "com.readytalk:metrics3-statsd:4.1.0"
+    )
+    def geotoolsVersion = "11.0"
+    geotools (
+            "org.geotools:gt-epsg-hsql:$geotoolsVersion",
+            "org.geotools:gt-render:$geotoolsVersion",
+            "org.geotools:gt-geojson:$geotoolsVersion",
+            "org.geotools:gt-geotiff:$geotoolsVersion",
+            "org.geotools:gt-wms:$geotoolsVersion",
+            "org.geotools.xsd:gt-xsd-gml3:$geotoolsVersion",
+            "org.geotools:gt-svg:$geotoolsVersion",
+            "org.geotools:gt-cql:$geotoolsVersion"
+    )
+    jasper (
+            "net.sf.jasperreports:jasperreports:$project.jasperReportVersion",
+            "org.codehaus.groovy:groovy-all:$project.groovyVersion",
+            'ar.com.fdvs:DynamicJasper:5.0.0',
+            'net.sf.jasperreports:jasperreports-fonts:6.0.0'
+    )
+    compile fileTree(dir: "$projectDir/libs", include: '*.jar')
+    compile (
+            "com.google.guava:guava:16.0.1",
+            "org.slf4j:slf4j-api:${slf4jVersion}",
+            "org.slf4j:jcl-over-slf4j:${slf4jVersion}",
+            'org.json:json:20080701',
+            'ch.qos.logback:logback-classic:1.1.1',
+            'org.yaml:snakeyaml:1.13',
+            "com.github.spullara.cli-parser:cli-parser:1.1.1",
+            'org.apache.httpcomponents:httpclient:4.3.3'
+    )
+
+    compile (configurations.metrics) {
+        exclude module: 'httpclient'
+        exclude module: 'slf4j-api'
+        exclude module: 'logback-classic'
+    }
+    compile (configurations.geotools)
+    compile (configurations.jasper)
+
+    // This jsr166 dependendency is here only so long as Java 6 is supported
+    // it is the forkjoin code and can be removed if java 7 is a required library
+    compile ('org.codehaus.jsr166-mirror:jsr166y:1.7.0')
+
+    compile ('org.apache.xmlgraphics:batik-transcoder:1.7'){
+        exclude module: 'fop'
+    }
+    providedCompile('com.google.code.findbugs:jsr305:2.0.1')
+
+    providedCompile('javax.servlet:servlet-api:2.5')
+}
+
+def gitRevision() {
+    try {
+        def cmd = "git rev-parse HEAD"
+        def proc = cmd.execute()
+        return proc.getText().trim()
+    } catch (Exception e) {
+        return "Error occurred while trying to execute git commandline tool: "+e
+    }
+}
+
+compileJava.options.compilerArgs = ['-Xlint:deprecation', '-Xlint:unchecked']
+
+def addManifestAttribute(manifest) {
+    manifest.mainAttributes(
+            'Mapfish-Print-Version': version,
+            'Git-Revision': gitRevision(),
+            'Build-Time': new Date().getDateTimeString(),
+            'Build-By': System.getProperty('user.name', "unknown"),
+            'Build-Java-Runtime-Name': System.getProperty('java.runtime.name', "unknown"),
+            'Build-Java-Version': System.getProperty('java.version', "unknown"),
+            'Build-OS-Arch': System.getProperty('os.arch', "unknown"),
+            'Build-OS-Name': System.getProperty('os.name', "unknown")
+    )
+}
+jar {
+    enabled = true
+    baseName = "print-lib"
+    addManifestAttribute(manifest)
+}
+
+def examplesDir = "${project(':examples').projectDir}/src/test/resources/examples"
+war {
+    baseName = "print-servlet"
+    addManifestAttribute(manifest)
+
+    from (fileTree(dir: examplesDir)) {
+        into 'print-apps'
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+jettyRun {
+    contextPath = ''
+    httpPort = 8080
+    scanTargets = (fileTree("src/main/").include("webapp/WEB-INF/**") + fileTree(compileJava.destinationDir)).files
+    reload = 'manual'
+    System.properties.setProperty("path_to_examples", examplesDir)
+    System.properties.setProperty("org.mortbay.jetty.Request.maxFormContentSize", "1048576")
+}
+
+
+task jettyRunWarBackground (dependsOn: jettyRunWar) {
+    description 'Start Mapfish-print in background mode for running integration tests'
+    doLast {
+        logger.info("Finished running test server in daemon (foreground) mode")
+    }
+}
+
+gradle.taskGraph.whenReady {taskGraph ->
+    if (taskGraph.hasTask(jettyRun)) {
+        jettyRun.classpath.add(files("jettyRunExtraFiles"))
+    }
+    if (taskGraph.hasTask(jettyRunWarBackground)) {
+        jettyRunWar.doFirst{
+            logger.info("Running test server in daemon (background) mode")
+        }
+
+        jettyRunWar.daemon = true;
+    } else {
+        jettyRunWar.doFirst{
+            logger.info("Running test server in non-daemon (foreground) mode")
+        }
+    }
+}
+
+
+task show << {
+    war.classpath.files.each {println it}
+//    project(":core").war.properties.each {println it}
+//      components.java.usages.iterator().next().artifacts.each {println it}
+//    publishing.getPublications().each { pub ->
+//        println("" + pub.coordinates + " - " + pub.artifacts)
+//    }
+//    sourceSets.main.classes.asFileTree.each {println it}
+//    configurations.archives.allArtifacts.each{println (it.name + " -- " + it.file)}
+//    tasks.each {println(it)}
+}
+
+task libJavadocJar(type: Jar, dependsOn: javadoc) {
+    baseName = 'print-lib'
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+
+task libSourcesJar(type: Jar) {
+    baseName = 'print-lib'
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+
+gradle.taskGraph.whenReady {taskGraph ->
+    if (taskGraph.hasTask(run)) {
+        mainClassName = "org.mapfish.print.cli.Main"
+        if (project.hasProperty("printArgs")) {
+            run.args printArgs.toString().split(" ").toList()
+        } else {
+            throw new IllegalArgumentException("You must supply the -PprintArgs=\"...\" arguments.\nFor Example:\n\n./gradlew run " +
+                    "-PprintArgs=\"-config examples/config.yaml -spec examples/spec.json -output ./output.pdf\"\n\n")
+        }
+    }
+}
+
+startScripts {
+    // clear up the classpath because the launcher jar has it.
+    applicationName="print"
+    mainClassName = "org.mapfish.print.cli.Main"
+    classpath = files(jar.archivePath)
+
+    doLast {
+        fileTree(startScripts.outputDir).each {file ->
+            def encoding = "UTF-8"
+            // there was a bug in the start script where all jars were listed and that failed in windows.
+            // now I just have the main jar and replace it with * so that all jars in that directory
+            // are loaded on classpath.
+            file.setText(file.getText(encoding).replace(jar.archivePath.name, '*'), encoding)
+        }
+    }
+}
+
+def getVersionName = { ->
+    if (System.getenv("DOCKER_VERSION")) {
+        return System.getenv("DOCKER_VERSION")
+    }
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'sh', '-c', 'git describe --tags --first-parent || echo "0"'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim().replace("release/", "").replaceAll("/", "_")
+}
+
+docker {
+    baseImage "tomcat:8-jre7"
+    maintainer 'Camptocamp "info@camptocamp.com"'
+}
+
+task unzipWar(type: Copy, dependsOn: 'war') {
+    def targetDir = new File(project.buildDir, "webapp")
+    if (!targetDir.exists()) {
+        targetDir.mkdirs()
+    }
+    from zipTree(war.archivePath)
+    into targetDir
+}
+
+task createDocker(type: Docker, dependsOn: 'unzipWar') {
+    applicationName = "mapfish_print"
+    tagVersion = getVersionName()
+    tag = "camptocamp/${applicationName}"
+
+    runCommand 'rm -rf ${CATALINA_HOME}/webapps/*'  +
+            ' && echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties' +
+            ' && echo "org.apache.catalina.startup.TldConfig.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties' +
+            ' && echo "tomcat.util.scan.DefaultJarScanner.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties'
+    addFile new File(project.buildDir, "webapp"), '${CATALINA_HOME}/webapps/ROOT'
+}

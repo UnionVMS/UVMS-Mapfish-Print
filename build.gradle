@@ -1,0 +1,119 @@
+/*
+ * Copyright (C) 2014  Camptocamp
+ *
+ * This file is part of MapFish Print
+ *
+ * MapFish Print is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * MapFish Print is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with MapFish Print.  If not, see <http://www.gnu.org/licenses/>.
+ */
+defaultTasks 'build'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+    scriptFile = "generated-gradlew"
+}
+
+allprojects {
+    group = 'org.mapfish.print'
+    version = '3.4-SNAPSHOT'
+    ext.junitVersion = "4.11"
+    ext.springVersion = "3.2.8.RELEASE"
+    ext.jasperReportVersion = "6.1.1"
+    ext.groovyVersion = "2.3.3"
+    ext."signing.keyId" = signing_keyId
+    ext."signing.secretKeyRingFile" = signing_secretKeyRingFile
+    ext."signing.password" = signing_password
+}
+
+configure(subprojects.findAll {['core', 'examples', 'docs'].contains(it.name)}) {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {url "http://dev.mapfish.org/maven/repository"}
+        maven {url "http://download.osgeo.org/webdav/geotools"}
+        maven {url "http://jasperreports.sourceforge.net/maven2"}
+        maven {url "https://dl.bintray.com/readytalk/maven"}
+    }
+}
+configure(subprojects.findAll {['core', 'examples'].contains(it.name)}) {
+    apply plugin: 'java'
+    apply plugin: 'findbugs'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'project-report'
+    apply plugin: 'checkstyle'
+
+    jar.dependsOn(checkstyleMain, findbugsMain)
+
+    checkstyle {
+        configFile = file("$rootProject.rootDir/checkstyle_checks.xml")
+        configProperties = ['basedir': project.rootDir.path]
+        ignoreFailures = false
+        reportsDir = file("$project.buildDir/reports/checkstyleReports")
+    }
+    checkstyleTest.enabled = false
+
+    String fullVersion = System.getProperty("java.specification.version");
+    String findbugsToolVersion = "3.0.1"
+    if (fullVersion.startsWith("1.6")) {
+        findbugsToolVersion = "2.0.3"
+    }
+
+    findbugs {
+        toolVersion = findbugsToolVersion
+        ignoreFailures = false
+        reportsDir = file("$project.buildDir/reports/findbugsReports")
+        effort = "max"
+        reportLevel = "high"
+        excludeFilter = file("$rootProject.projectDir/findbugs-exclude.xml")
+    }
+    findbugsTest.enabled = false
+
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+
+    compileJava.options.compilerArgs = ['-Xlint:deprecation', '-Xlint:unchecked']
+
+    dependencies {
+        testCompile (
+                "junit:junit:${project.junitVersion}",
+                'org.mockito:mockito-core:1.9.5',
+                "org.springframework:spring-test:${springVersion}"
+        )
+
+    }
+
+    test {
+        jvmArgs '-XX:MaxPermSize=256m', '-XX:+UseConcMarkSweepGC', '-XX:+CMSClassUnloadingEnabled'
+        minHeapSize = "128m"
+        maxHeapSize = "512m"
+        testLogging {
+            exceptionFormat = 'full'
+        }
+    }
+
+    sourceSets {
+        test {
+            output.resourcesDir = output.classesDir
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "utf-8"
+    }
+    tasks.withType(Javadoc) {
+        options.encoding = "utf-8"
+    }
+
+}
+
