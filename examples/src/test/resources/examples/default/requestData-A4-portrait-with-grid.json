@@ -1,0 +1,155 @@
+{
+    "layout": "A4 portrait",
+    "attributes": {
+        "title": "яяяяяяяяя",
+        "subtitle": "вввввввввв",
+        "description": "ееееееееее",
+        "map": {
+            "projection": "EPSG:3857",
+            "bbox": [-497440.6735518279,
+                5391852.984127318,
+                -292125.9380980913,
+                5652315.779194762],
+            "dpi": 72,
+            "rotation": 0,
+            "layers": [
+                {
+                    "type": "geojson",
+                    "style": {
+                        "version": 2,
+                        "graphicWidth": 18,
+                        "graphicOpacity": 1,
+                        "graphicFormat": "image/png",
+                        "type": "point",
+                        "[countryCode = 'DNK']": {
+                            "symbolizers": [{
+                                "rotation": "[reportedCourse]",
+                                "externalGraphic": "http://localhost:9001/spatial/image/position/A3EF1D"
+                            }]
+                        }
+
+                    },
+
+                    "geojson": {
+                        "type": "FeatureCollection",
+                        "features": [{
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [-445277.9631730943,
+                                    5465442.183322749]
+                            },
+                            "properties": {
+                                "positionTime": "2016-01-20T11:14:00.000Z",
+                                "connectionId": "ae9a03a4-62c6-462e-a5ab-27c22439b7e6",
+                                "status": "",
+                                "reportedCourse": 5,
+                                "calculatedSpeed": 0,
+                                "movementType": "MAN",
+                                "activityType": "",
+                                "reportedSpeed": 6,
+                                "cfr": "SWE000000069",
+                                "countryCode": "DNK",
+                                "ircs": "OZGH",
+                                "name": "JEANNE",
+                                "movementGuid": "3c778c11-a977-4338-b651-c13c28124d3f",
+                                "externalMarking": "FN462",
+                                "source": "MANUAL",
+                                "overlayId": "4e972efb-e779-98ea-f03a-3efd80cd776a",
+                                "overlayHidden": false,
+                                "popupX": -445277.9631730943,
+                                "popupY": 5465442.183322749
+                            }
+                        },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [-356222.37053847546,
+                                        5590090.3415273065]
+                                },
+                                "properties": {
+                                    "positionTime": "2016-01-21T11:10:00.000Z",
+                                    "connectionId": "ae9a03a4-62c6-462e-a5ab-27c22439b7e6",
+                                    "status": "",
+                                    "reportedCourse": 10,
+                                    "calculatedSpeed": 0.0006851399735903509,
+                                    "movementType": "MAN",
+                                    "activityType": "",
+                                    "reportedSpeed": 10,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "movementGuid": "8b45303e-eee0-498c-8928-b87d638aebc8",
+                                    "externalMarking": "FN462",
+                                    "source": "MANUAL",
+                                    "overlayId": "6efb72b4-9fe0-11ce-2680-8fe6c36b6190",
+                                    "overlayHidden": false,
+                                    "popupX": -356222.37053847546,
+                                    "popupY": 5590090.3415273065
+                                }
+                            }]
+
+                    },
+                    "popupProperties" : {
+                        "showAttrNames": true,
+                        "popupStyle": {
+                            "width": 100,
+                            "radius": 5,
+                            "border": {
+                                "color": "#1E90FF",
+                                "width": 8
+                            }
+                        },
+                        "dataFields": [
+                            {
+                                "propName": "movementType",
+                                "displayName": "Type"
+                            },
+                            {
+                                "propName": "reportedSpeed",
+                                "displayName": "Speed"
+                            },
+                            {
+                                "propName": "connectionId",
+                                "displayName": "Connection ID"
+                            },
+                            {
+                                "propName": "overlayId",
+                                "displayName": "Overlay ID"
+                            }
+                        ]
+                    }
+                }
+
+                       ]
+        },
+        "legend": {
+            "name": "",
+            "classes": [{
+                "name": "Positions",
+                "icons": ["http://localhost:9001/spatial/image/legend/a572b6f3-2355-4a24-9a6a-cb8cb1b2277c"]
+            },
+                {
+                    "name": "Segments",
+                    "icons": ["http://localhost:9001/spatial/image/legend/54cc43da-7c50-43a7-92dd-f9c07029de0c"]
+                }]
+        },
+        "datasource": [{
+            "displayName": "",
+            "table": {
+                "columns": ["layer",
+                    "copyright"],
+                "data": [["Positions",
+                    "VMS Positions from UnionVMS"],
+                    ["Segments",
+                        "VMS Segments from UnionVMS"],
+                    ["OpenStreetMap",
+                        "© OpenStreetMap contributors."]]
+            }
+        }],
+        "copyrightTitle": "COPYRIGHT",
+        "legendTitle": "LEGEND"
+    }
+}

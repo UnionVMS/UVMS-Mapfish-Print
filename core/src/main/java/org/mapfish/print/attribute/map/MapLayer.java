@@ -51,7 +51,7 @@ public interface MapLayer {
      * @param transformer  the map transformer containing the map bounds and size
      * @param isFirstLayer true indicates this layer is the first layer in the map (the first layer drawn, ie the base layer)
      */
-    void render(Graphics2D graphics2D,
+    public void render(Graphics2D graphics2D,
                 MfClientHttpRequestFactory clientHttpRequestFactory,
                 MapfishMapContext transformer,
                 final boolean isFirstLayer);

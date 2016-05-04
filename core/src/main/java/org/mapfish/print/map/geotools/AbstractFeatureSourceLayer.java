@@ -42,10 +42,10 @@ import javax.annotation.Nonnull;
  */
 public abstract class AbstractFeatureSourceLayer extends AbstractGeotoolsLayer {
 
-    private FeatureSourceSupplier featureSourceSupplier;
-    private FeatureSource<?, ?> featureSource = null;
-    private StyleSupplier<FeatureSource> styleSupplier;
-    private final Boolean renderAsSvg;
+    protected FeatureSourceSupplier featureSourceSupplier;
+    protected FeatureSource<?, ?> featureSource = null;
+    protected StyleSupplier<FeatureSource> styleSupplier;
+    protected final Boolean renderAsSvg;
 
     /**
      * Constructor.

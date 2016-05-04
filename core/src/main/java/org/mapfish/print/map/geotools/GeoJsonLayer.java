@@ -19,16 +19,41 @@
 
 package org.mapfish.print.map.geotools;
 
+import com.google.common.collect.Maps;
+import com.vividsolutions.jts.geom.Geometry;
+import org.eclipse.emf.ecore.util.EContentsEList;
 import org.geotools.data.FeatureSource;
 import org.geotools.data.collection.CollectionFeatureSource;
 import org.geotools.data.simple.SimpleFeatureCollection;
+import org.geotools.feature.FeatureCollection;
+import org.geotools.feature.FeatureIterator;
+import org.geotools.feature.simple.SimpleFeatureImpl;
+import org.geotools.geometry.jts.ReferencedEnvelope;
+import org.geotools.map.Layer;
+import org.geotools.map.MapContent;
+import org.geotools.renderer.lite.RendererUtilities;
+import org.geotools.renderer.lite.StreamingRenderer;
 import org.mapfish.print.ExceptionUtils;
+import org.mapfish.print.attribute.map.MapBounds;
 import org.mapfish.print.attribute.map.MapfishMapContext;
 import org.mapfish.print.config.Template;
 import org.mapfish.print.http.MfClientHttpRequestFactory;
 import org.mapfish.print.map.AbstractLayerParams;
+import org.mapfish.print.map.geotools.popup.DataFieldParam;
+import org.mapfish.print.map.geotools.popup.PopupParam;
+import org.mapfish.print.map.geotools.popup.PopupStyle;
+import org.mapfish.print.parser.HasDefaultValue;
+import org.mapfish.print.parser.OneOf;
+import org.opengis.feature.Feature;
+import org.opengis.feature.GeometryAttribute;
+import org.opengis.feature.Property;
+import org.opengis.feature.simple.SimpleFeature;
 
+import java.awt.*;
+import java.awt.geom.*;
 import java.io.IOException;
+import java.util.*;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import javax.annotation.Nonnull;
 
@@ -55,6 +80,182 @@ public final class GeoJsonLayer extends AbstractFeatureSourceLayer {
                         final boolean renderAsSvg,
                         final AbstractLayerParams params) {
         super(executorService, featureSourceSupplier, styleSupplier, renderAsSvg, params);
+    }
+
+        @Override
+        public void render(final Graphics2D graphics2D,
+                   final MfClientHttpRequestFactory clientHttpRequestFactory,
+                   final MapfishMapContext transformer,
+                   final boolean isFirstLayer) {
+        super.render(graphics2D, clientHttpRequestFactory, transformer, isFirstLayer);
+
+        Rectangle paintArea = new Rectangle(transformer.getMapSize());
+        MapBounds bounds = transformer.getBounds();
+
+        MapfishMapContext layerTransformer = transformer;
+        if (transformer.getRotation() != 0.0 && !this.supportsNativeRotation()) {
+            // if a rotation is set and the rotation can not be handled natively
+            // by the layer, we have to adjust the bounds and map size
+            paintArea = new Rectangle(transformer.getRotatedMapSize());
+            bounds = transformer.getRotatedBounds();
+            graphics2D.setTransform(transformer.getTransform());
+            Dimension mapSize = new Dimension(paintArea.width, paintArea.height);
+            layerTransformer = new MapfishMapContext(transformer, bounds, mapSize, transformer.getRotation(), transformer.getDPI(),
+                    transformer.getRequestorDPI(), transformer.isForceLongitudeFirst(), transformer.isDpiSensitiveStyle());
+        }
+
+
+        MapContent content = new MapContent();
+        try {
+            java.util.List<? extends Layer> layers = getLayers(clientHttpRequestFactory, layerTransformer, isFirstLayer);
+//            applyTransparency(layers);
+
+            content.addLayers(layers);
+
+            StreamingRenderer renderer = new StreamingRenderer();
+
+            RenderingHints hints = new RenderingHints(Collections.<RenderingHints.Key, Object>emptyMap());
+            hints.add(new RenderingHints(RenderingHints.KEY_ALPHA_INTERPOLATION,
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY));
+            hints.add(new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON));
+            hints.add(new RenderingHints(RenderingHints.KEY_COLOR_RENDERING,
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY));
+            hints.add(new RenderingHints(RenderingHints.KEY_DITHERING,
+                    RenderingHints.VALUE_DITHER_ENABLE));
+            hints.add(new RenderingHints(RenderingHints.KEY_FRACTIONALMETRICS,
+                    RenderingHints.VALUE_FRACTIONALMETRICS_ON));
+            hints.add(new RenderingHints(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC));
+            hints.add(new RenderingHints(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY));
+            hints.add(new RenderingHints(RenderingHints.KEY_STROKE_CONTROL,
+                    RenderingHints.VALUE_STROKE_PURE));
+            hints.add(new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON));
+
+            graphics2D.addRenderingHints(hints);
+            renderer.setJava2DHints(hints);
+            Map<String, Object> renderHints = Maps.newHashMap();
+            if (transformer.isForceLongitudeFirst() != null) {
+                renderHints.put(StreamingRenderer.FORCE_EPSG_AXIS_ORDER_KEY, transformer.isForceLongitudeFirst());
+            }
+            renderer.setRendererHints(renderHints);
+
+            renderer.setMapContent(content);
+
+            final ReferencedEnvelope mapArea = bounds.toReferencedEnvelope(paintArea, transformer.getDPI());
+
+            renderer.paint(graphics2D, paintArea, mapArea);
+
+            //            renderer.setThreadPool(this.executorService);
+            FeatureIterator<? extends Feature> featuresIter= this.featureSource.getFeatures().features();
+            AffineTransform pointTransformer = RendererUtilities.worldToScreenTransform(mapArea, paintArea);
+
+            FontMetrics fontMetrics = graphics2D.getFontMetrics();
+
+            while (featuresIter.hasNext()) {
+                Feature feature = featuresIter.next();
+                Property showPopupProperty = feature.getProperty("overlayHidden");
+                Property popupX = feature.getProperty("popupX");
+                Property popupY = feature.getProperty("popupY");
+
+                if (showPopupProperty.getValue() instanceof Boolean && !((Boolean)showPopupProperty.getValue())) {
+                    GeoJsonParam geoJsonParam = (GeoJsonParam)this.params;
+                    List<String> popupLines = new ArrayList<>();
+                    StringBuilder buffer = new StringBuilder();
+
+                    /*
+                    GeometryAttribute geomAttr = (GeometryAttribute)feature.getProperty("geometry");
+                    System.out.println(geomAttr.getBounds());
+
+                    Point2D featurePoint = new Point2D.Double(geomAttr.getBounds().getMinX(), geomAttr.getBounds().getMinY()); */
+                    Point2D featurePoint = new Point2D.Double((Double)popupX.getValue(), (Double)popupY.getValue());
+                    Point2D featurePointInPixelPlain = pointTransformer.transform(featurePoint, null);
+
+                    int lineWidth = geoJsonParam.popupProperties.popupStyle.width; //in pixels
+                    int lineHeight = graphics2D.getFontMetrics().getHeight(); //in pixels
+                    double startXPixel = featurePointInPixelPlain.getX();
+                    double startYPixel = featurePointInPixelPlain.getY();
+
+                    //draw the first horizontal line of the popup --------------
+                    /*graphics2D.setColor(Color.BLACK);
+                    graphics2D.draw(new Line2D.Double(startXPixel, startYPixel, startXPixel + lineWidth, startYPixel));*/
+
+                    Map<String, String> propsToDisplay = new HashMap<>();
+
+                    for(DataFieldParam dataField:geoJsonParam.popupProperties.dataFields) {
+                        if (feature.getProperty(dataField.propName) != null && feature.getProperty(dataField.propName).getValue() != null) {
+                            propsToDisplay.put(dataField.displayName, feature.getProperty(dataField.propName).getValue().toString());
+                        }
+                    }
+
+                    RoundRectangle2D.Double background = new RoundRectangle2D.Double(startXPixel,
+                            startYPixel,
+                            lineWidth,
+                            lineHeight*propsToDisplay.size(),
+                            geoJsonParam.popupProperties.popupStyle.radius,
+                            geoJsonParam.popupProperties.popupStyle.radius);
+
+                    Rectangle2D blueStripe = new Rectangle2D.Double(startXPixel,
+                            startYPixel,
+                            geoJsonParam.popupProperties.popupStyle.border.width,
+                            lineHeight*propsToDisplay.size());
+                    Area blueStripeArea = new Area(blueStripe);
+                    blueStripeArea.intersect(new Area(background));
+
+                    graphics2D.setColor(Color.white);
+                    graphics2D.fill(background);
+                    graphics2D.setColor(Color.decode(geoJsonParam.popupProperties.popupStyle.border.color));
+                    graphics2D.fill(blueStripeArea);
+
+                    graphics2D.setColor(Color.black);
+
+                    lineWidth -=  blueStripeArea.getBounds().width; //remove the blue stripe on the left
+                    startXPixel += blueStripeArea.getBounds().width;
+                    Font font = graphics2D.getFont();
+
+                    for(Map.Entry<String, String> prop: propsToDisplay.entrySet()) {
+                        if (geoJsonParam.popupProperties.showAttrNames) {
+                            font.deriveFont(Font.BOLD);
+                            graphics2D.setFont(font.deriveFont(Font.BOLD));
+                            fontMetrics = graphics2D.getFontMetrics();
+
+                            buffer.append(prop.getKey()).append(": ");
+
+                            while (fontMetrics.stringWidth(buffer.toString()) > lineWidth) {
+                                buffer.deleteCharAt(buffer.length()-1);
+                            }
+                            graphics2D.drawString(buffer.toString(), (float) startXPixel, (float) startYPixel + 11);
+                        }
+
+                        int propLabelWidth = fontMetrics.stringWidth(buffer.toString());
+                        graphics2D.setFont(font.deriveFont(Font.PLAIN));
+                        fontMetrics = graphics2D.getFontMetrics();
+
+                        if (propLabelWidth < lineWidth) {
+                            buffer = new StringBuilder(prop.getValue());
+
+                            while (fontMetrics.stringWidth(buffer.toString()) + propLabelWidth > lineWidth) {
+                                buffer.deleteCharAt(buffer.length()-1);
+                            }
+
+                            graphics2D.drawString(buffer.toString(), (float) startXPixel + propLabelWidth, (float) startYPixel + 11);
+                        }
+                        buffer = new StringBuilder();
+                        startYPixel += lineHeight;
+
+                    }
+
+
+                }
+            }
+
+        } catch (Exception e) {
+            throw ExceptionUtils.getRuntimeException(e);
+        } finally {
+            content.dispose();
+        }
     }
 
     /**
@@ -121,5 +322,7 @@ public final class GeoJsonLayer extends AbstractFeatureSourceLayer {
          * The url can be a file url, however if it is it must be relative to the configuration directory.
          */
         public String geoJson;
+
+        public PopupParam popupProperties;
     }
 }

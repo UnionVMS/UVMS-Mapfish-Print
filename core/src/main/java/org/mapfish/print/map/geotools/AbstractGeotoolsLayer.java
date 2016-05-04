@@ -52,7 +52,7 @@ import static org.mapfish.print.Constants.OPACITY_PRECISION;
 public abstract class AbstractGeotoolsLayer implements MapLayer {
 
     private final ExecutorService executorService;
-    private final AbstractLayerParams params;
+    protected final AbstractLayerParams params;
 
     /**
      * Constructor.
@@ -72,7 +72,7 @@ public abstract class AbstractGeotoolsLayer implements MapLayer {
     }
 
     @Override
-    public final void render(final Graphics2D graphics2D,
+    public void render(final Graphics2D graphics2D,
                              final MfClientHttpRequestFactory clientHttpRequestFactory,
                              final MapfishMapContext transformer,
                              final boolean isFirstLayer) {

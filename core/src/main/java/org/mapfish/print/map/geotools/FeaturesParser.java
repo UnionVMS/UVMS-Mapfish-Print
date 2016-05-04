@@ -181,6 +181,7 @@ public class FeaturesParser {
                         this.forceLongitudeFirst);
                 SimpleFeatureTypeBuilder builder = new SimpleFeatureTypeBuilder();
                 builder.setName("GeosjonFeatureType");
+
                 final JSONArray features = geojson.getJSONArray("features");
 
                 if (features.length() == 0) {

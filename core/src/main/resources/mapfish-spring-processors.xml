@@ -28,6 +28,7 @@
     <bean id="setFeatures" class="org.mapfish.print.processor.map.SetFeaturesProcessor" scope="prototype" />
     <bean id="setWmsCustomParam" class="org.mapfish.print.processor.map.SetWmsCustomParamProcessor" scope="prototype" />
     <bean id="createOverviewMap" class="org.mapfish.print.processor.map.CreateOverviewMapProcessor" scope="prototype" />
+    <bean id="createLabels" class="org.mapfish.print.map.geotools.popup.CreateLabelsProcessor" scope="prototype" />
     <bean id="createScalebar" class="org.mapfish.print.processor.map.scalebar.CreateScalebarProcessor" scope="prototype" />
     <bean id="createNorthArrow" class="org.mapfish.print.processor.map.CreateNorthArrowProcessor" scope="prototype" />
     <bean id="addBackgroundLayers" class="org.mapfish.print.processor.map.AddStaticLayersProcessor" scope="prototype">
@@ -54,6 +55,15 @@
     <bean id="updatePdfConfig" class="org.mapfish.print.processor.PdfConfigurationProcessor" scope="prototype" />
     <bean id="updatePdfConfigUpdate" class="org.mapfish.print.processor.PdfConfigurationProcessor$Update" scope="prototype" />
 
+   <!-- <bean class="org.mapfish.print.processor.ProcessorDependency">
+        <constructor-arg type="java.lang.Class" index="0" value="org.mapfish.print.processor.map.CreateMapProcessor"/>
+        <constructor-arg type="java.lang.Class" index="1" value="org.mapfish.print.map.geotools.popup.CreateLabelsProcessor" />
+        <constructor-arg type="java.util.Set" index="2">
+            <util:set>
+                <value>map;features</value>
+            </util:set>
+        </constructor-arg>
+    </bean>-->
 
     <bean class="org.mapfish.print.processor.ProcessorDependency">
         <constructor-arg type="java.lang.Class" index="0" value="org.mapfish.print.processor.map.SetStyleProcessor" />

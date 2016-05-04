@@ -36,6 +36,7 @@ import org.geotools.feature.FeatureCollection;
 import org.geotools.geometry.jts.JTS;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.referencing.operation.transform.AffineTransform2D;
+import org.geotools.resources.geometry.XRectangle2D;
 import org.mapfish.print.Constants;
 import org.mapfish.print.ExceptionUtils;
 import org.mapfish.print.attribute.map.AreaOfInterest;
@@ -64,10 +65,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
@@ -226,7 +224,6 @@ public final class CreateMapProcessor extends AbstractProcessor<CreateMapProcess
                 Graphics2D graphics2D = createClippedGraphics(mapContext, areaOfInterest, bufferedImage.createGraphics());
                 try {
                     layer.render(graphics2D, clientHttpRequestFactory, mapContext, isFirstLayer);
-
                     path = new File(printDirectory, mapKey + "_layer_" + i + ".png");
                     ImageIO.write(bufferedImage, "png", path);
                 } finally {

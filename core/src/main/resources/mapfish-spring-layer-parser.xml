@@ -31,4 +31,7 @@
     <bean id="featureLayerParser" class="org.mapfish.print.map.geotools.FeatureLayer$Plugin" />
 
     <bean id="cachingUrihandler" class="org.mapfish.print.map.geotools.CachingUrihandler" />
+
+    <!--<bean id="popupLayerParser" class="org.mapfish.print.map.geotools.popup.PopupLayerPlugin" />-->
+
 </beans>
