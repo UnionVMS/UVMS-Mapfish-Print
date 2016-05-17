@@ -37,10 +37,10 @@ import org.opengis.referencing.operation.MathTransform;
 public final class PopupParam{
 
 
-    @HasDefaultValue
+   // @HasDefaultValue
     public Boolean showAttrNames = false;
 
-    @OneOf("dataFields")
+   // @OneOf("dataFields")
     public DataFieldParam[] dataFields;
 
     public PopupStyle popupStyle;
