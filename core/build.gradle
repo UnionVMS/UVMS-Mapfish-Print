@@ -172,13 +172,13 @@ jar {
     addManifestAttribute(manifest)
 }
 
-def examplesDir = "${project(':examples').projectDir}/src/test/resources/examples"
+def examplesDir = "${project(':examples').projectDir}/src/test/resources/examples/default"
 war {
     baseName = "print-servlet"
     addManifestAttribute(manifest)
 
-    from (fileTree(dir: examplesDir)) {
-        into 'print-apps'
+    from (examplesDir) {
+        into 'print-apps/default'
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
