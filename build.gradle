@@ -43,6 +43,7 @@ configure(subprojects.findAll {['core', 'examples', 'docs'].contains(it.name)}) 
         maven {url "http://download.osgeo.org/webdav/geotools"}
         maven {url "http://jasperreports.sourceforge.net/maven2"}
         maven {url "https://dl.bintray.com/readytalk/maven"}
+        maven {url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts"}
     }
 }
 configure(subprojects.findAll {['core', 'examples'].contains(it.name)}) {
@@ -58,7 +59,7 @@ configure(subprojects.findAll {['core', 'examples'].contains(it.name)}) {
     checkstyle {
         configFile = file("$rootProject.rootDir/checkstyle_checks.xml")
         configProperties = ['basedir': project.rootDir.path]
-        ignoreFailures = false
+        ignoreFailures = true
         reportsDir = file("$project.buildDir/reports/checkstyleReports")
     }
     checkstyleTest.enabled = false
@@ -79,8 +80,8 @@ configure(subprojects.findAll {['core', 'examples'].contains(it.name)}) {
     }
     findbugsTest.enabled = false
 
-    sourceCompatibility = 1.6
-    targetCompatibility = 1.6
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
 
     compileJava.options.compilerArgs = ['-Xlint:deprecation', '-Xlint:unchecked']
 
