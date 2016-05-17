@@ -21,6 +21,7 @@ package org.mapfish.print.map.geotools;
 
 import com.google.common.collect.Maps;
 import com.vividsolutions.jts.geom.Geometry;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.eclipse.emf.ecore.util.EContentsEList;
 import org.geotools.data.FeatureSource;
 import org.geotools.data.collection.CollectionFeatureSource;
@@ -182,7 +183,7 @@ public final class GeoJsonLayer extends AbstractFeatureSourceLayer {
                     /*graphics2D.setColor(Color.BLACK);
                     graphics2D.draw(new Line2D.Double(startXPixel, startYPixel, startXPixel + lineWidth, startYPixel));*/
 
-                    Map<String, String> propsToDisplay = new HashMap<>();
+                    Map<String, String> propsToDisplay = new LinkedHashMap<>();
 
                     for(DataFieldParam dataField:geoJsonParam.popupProperties.dataFields) {
                         if (feature.getProperty(dataField.propName) != null && feature.getProperty(dataField.propName).getValue() != null) {
@@ -226,7 +227,7 @@ public final class GeoJsonLayer extends AbstractFeatureSourceLayer {
                             while (fontMetrics.stringWidth(buffer.toString()) > lineWidth) {
                                 buffer.deleteCharAt(buffer.length()-1);
                             }
-                            graphics2D.drawString(buffer.toString(), (float) startXPixel, (float) startYPixel + 11);
+                            graphics2D.drawString(StringEscapeUtils.escapeJava(buffer.toString()), (float) startXPixel, (float) startYPixel + 11);
                         }
 
                         int propLabelWidth = fontMetrics.stringWidth(buffer.toString());
