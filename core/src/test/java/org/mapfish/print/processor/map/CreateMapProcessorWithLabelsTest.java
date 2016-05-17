@@ -60,8 +60,7 @@ import static org.junit.Assert.assertTrue;
  * Created by Jesse on 3/26/14.
  */
 public class CreateMapProcessorWithLabelsTest extends AbstractMapfishSpringTest {
-//    public static final String BASE_DIR = "bbox_geojson_labels/";
-public static final String BASE_DIR = "C:\\dev\\UNIONVMS\\trunk\\mapfish-print\\examples\\src\\test\\resources\\examples\\default\\";
+    public static final String BASE_DIR = "default/";
 
     @Autowired
     private ConfigurationFactory configurationFactory;

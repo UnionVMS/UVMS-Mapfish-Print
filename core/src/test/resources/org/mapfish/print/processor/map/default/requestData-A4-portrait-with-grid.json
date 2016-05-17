@@ -1,0 +1,282 @@
+{
+    "layout": "A4 portrait",
+    "attributes": {
+        "title": "a",
+        "subtitle": "a",
+        "description": "a",
+        "map": {
+            "projection": "EPSG:3857",
+            "bbox": [-1524076.7629475058,
+                3675778.9009672166,
+                -1454083.103133732,
+                3764573.0356493],
+            "dpi": 72,
+            "rotation": 0,
+            "layers": [{
+                "type": "geojson",
+                "style": {
+                    "version": 2,
+                    "graphicWidth": 18,
+                    "graphicOpacity": 1,
+                    "graphicFormat": "image/png",
+                    "type": "point",
+                    "[countryCode = 'SWE']": {
+                        "symbolizers": [{
+                            "rotation": "[reportedCourse]",
+                            "externalGraphic": "http://localhost:8080/spatial/image/position/815FB3"
+                        }]
+                    },
+                    "[countryCode = 'DNK']": {
+                        "symbolizers": [{
+                            "rotation": "[reportedCourse]",
+                            "externalGraphic": "http://localhost:8080/spatial/image/position/B5B938"
+                        }]
+                    }
+                },
+                "geojson": {
+                    "type": "FeatureCollection",
+                    "features": [{
+                        "type": "Feature",
+                        "id": 60,
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [-1483109.575838784,
+                                3695113.907909476]
+                        },
+                        "properties": {
+                            "positionTime": "2016-03-15T04:37:00.000Z",
+                            "connectionId": "01c8eefe-daee-4cc7-b662-85a040879c0f",
+                            "status": "",
+                            "reportedCourse": 180,
+                            "calculatedSpeed": 0.002335599457946716,
+                            "movementType": "POS",
+                            "activityType": "",
+                            "reportedSpeed": 9,
+                            "cfr": "SWE000006891",
+                            "countryCode": "DNK",
+                            "ircs": "OZHX",
+                            "name": "EMMALIE",
+                            "movementGuid": "46850065-20db-48a0-bc7b-12977d1b16c8",
+                            "externalMarking": "RI433",
+                            "source": "INMARSAT_C",
+                            "overlayHidden": true
+                        }
+                    },
+                        {
+                            "type": "Feature",
+                            "id": 51,
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [-1483220.8953295771,
+                                    3699683.287361976]
+                            },
+                            "properties": {
+                                "positionTime": "2016-03-15T04:22:00.000Z",
+                                "connectionId": "01c8eefe-daee-4cc7-b662-85a040879c0f",
+                                "status": "",
+                                "reportedCourse": 181,
+                                "calculatedSpeed": 0.0024901289068679933,
+                                "movementType": "POS",
+                                "activityType": "",
+                                "reportedSpeed": 9,
+                                "cfr": "SWE000006891",
+                                "countryCode": "DNK",
+                                "ircs": "OZHX",
+                                "name": "EMMALIE",
+                                "movementGuid": "3a0e6b21-45aa-45c4-96f9-0c07e3d60380",
+                                "externalMarking": "RI433",
+                                "source": "INMARSAT_C",
+                                "overlayHidden": true
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "id": 6,
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [-1483332.2148203703,
+                                    3713663.1615104196]
+                            },
+                            "properties": {
+                                "positionTime": "2016-03-15 03:39:00",
+                                "connectionId": "01c8eefe-daee-4cc7-b662-85a040879c0f",
+                                "status": "",
+                                "reportedCourse": "178°",
+                                "calculatedSpeed": "0.00253 kts",
+                                "movementType": "POS",
+                                "activityType": "",
+                                "reportedSpeed": "9.00000 kts",
+                                "cfr": "SWE000006891",
+                                "countryCode": "DNK",
+                                "ircs": "OZHX",
+                                "name": "EMMALIE",
+                                "movementGuid": "0692d1f5-1341-4c31-92ec-ba956fbc80ad",
+                                "externalMarking": "RI433",
+                                "source": "INMARSAT_C",
+                                "overlayId": "b65472a5-c54e-b654-8e45-b2dbadafc571",
+                                "overlayHidden": false,
+                                "popupX": -1483332.2148203703,
+                                "popupY": 3713663.1615104196,
+                                "disp_lon": "-13° 19,500′",
+                                "disp_lat": "31° 37,260′"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "id": 63,
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [-1484668.0487098896,
+                                    3751633.6555726794]
+                            },
+                            "properties": {
+                                "positionTime": "2016-03-15 01:44:00",
+                                "connectionId": "01c8eefe-daee-4cc7-b662-85a040879c0f",
+                                "status": "",
+                                "reportedCourse": "179°",
+                                "calculatedSpeed": "0.00007 kts",
+                                "movementType": "POS",
+                                "activityType": "",
+                                "reportedSpeed": "9.00000 kts",
+                                "cfr": "SWE000006891",
+                                "countryCode": "DNK",
+                                "ircs": "OZHX",
+                                "name": "EMMALIE",
+                                "movementGuid": "4a3c30d6-8e39-47ff-a542-5aebb7ea932e",
+                                "externalMarking": "RI433",
+                                "source": "INMARSAT_C",
+                                "overlayId": "828b2972-29ab-d70b-0131-46af34699983",
+                                "overlayHidden": false,
+                                "popupX": -1484668.0487098896,
+                                "popupY": 3751633.6555726794,
+                                "disp_lon": "-13° 20,220′",
+                                "disp_lat": "31° 54,660′"
+                            }
+                        }]
+                },
+                "popupProperties": {
+                    "showAttrNames": true,
+                    "dataFields": [{
+                        "displayName": "F.S.",
+                        "propName": "countryCode"
+                    },
+                        {
+                            "displayName": "Ext. Mark.",
+                            "propName": "externalMarking"
+                        },
+                        {
+                            "displayName": "IRCS",
+                            "propName": "ircs"
+                        },
+                        {
+                            "displayName": "CFR",
+                            "propName": "cfr"
+                        },
+                        {
+                            "displayName": "Date",
+                            "propName": "positionTime"
+                        },
+                        {
+                            "displayName": "Lon",
+                            "propName": "disp_long"
+                        },
+                        {
+                            "displayName": "Lat",
+                            "propName": "disp_lat"
+                        },
+                        {
+                            "displayName": "Status",
+                            "propName": "status"
+                        },
+                        {
+                            "displayName": "MS",
+                            "propName": "reportedSpeed"
+                        },
+                        {
+                            "displayName": "CS",
+                            "propName": "calculatedSpeed"
+                        },
+                        {
+                            "displayName": "Course",
+                            "propName": "reportedCourse"
+                        },
+                        {
+                            "displayName": "Msg.Type",
+                            "propName": "movementType"
+                        },
+                        {
+                            "displayName": "Act. type",
+                            "propName": "activityType"
+                        },
+                        {
+                            "displayName": "Source",
+                            "propName": "source"
+                        },
+                        {
+                            "displayName": "Name",
+                            "propName": "name"
+                        }],
+                    "popupStyle": {
+                        "width": 181,
+                        "radius": 5,
+                        "border": {
+                            "color": "#089fd7",
+                            "width": 8
+                        }
+                    }
+                }
+            },
+                {
+                    "baseURL": "http://tile.openstreetmap.org",
+                    "type": "OSM",
+                    "resolutions": [156543.03390625,
+                        78271.516953125,
+                        39135.7584765625,
+                        19567.87923828125,
+                        9783.939619140625,
+                        4891.9698095703125,
+                        2445.9849047851562,
+                        1222.9924523925781,
+                        611.4962261962891,
+                        305.74811309814453,
+                        152.87405654907226,
+                        76.43702827453613,
+                        38.218514137268066,
+                        19.109257068634033,
+                        9.554628534317017,
+                        4.777314267158508,
+                        2.388657133579254,
+                        1.194328566789627,
+                        0.5971642833948135],
+                    "opacity": 1,
+                    "maxExtent": [-20037508.34,
+                        -20037508.34,
+                        20037508.34,
+                        20037508.34],
+                    "tileSize": [256,
+                        256],
+                    "imageExtension": "png"
+                }]
+        },
+        "legend": {
+            "name": "",
+            "classes": [{
+                "name": "Positions",
+                "icons": ["http://localhost:8080/spatial/image/legend/ea410ba5-9e64-4d41-b9e2-1f81287a7580"]
+            }]
+        },
+        "datasource": [{
+            "displayName": "",
+            "table": {
+                "columns": ["layer",
+                    "copyright"],
+                "data": [["Positions",
+                    "VMS Positions from UnionVMS."],
+                    ["OpenStreetMap",
+                        "© OpenStreetMap contributors."]]
+            }
+        }],
+        "copyrightTitle": "COPYRIGHT",
+        "legendTitle": "LEGEND"
+    }
+}

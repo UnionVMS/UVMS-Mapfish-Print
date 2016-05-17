@@ -1,0 +1,397 @@
+{
+    "layout": "A4 landscape",
+    "attributes": {
+        "copyrightTitle": "COPYRIGHT",
+        "legendTitle": "LEGEND",
+        "title": "a",
+        "subtitle": "a",
+        "description": "a",
+        "datasource": [
+            {
+                "displayName": "Copyright",
+                "table": {
+                    "columns": [
+                        "layer",
+                        "copyright"
+                    ],
+                    "data": [
+                        [
+                            "eez",
+                            "cxlmkvclmxkvcmlvcxmvkcxmlvclmkvcmlvckxmlkvxcvcxmlcvxmklcvxmlvcxklmvckxmcvkxlmcvxklm"
+                        ],
+                        [
+                            "rfmo",
+                            "ekflzjfekljkeflzjklefzjkfejzklfejzjfezlkjfezlfezjflzekfezlkjfzeljfezlkefzjfelzkjfezlkjfezlkjefzlkfezjlkfze"
+                        ],
+                        [
+                            "eefzkmlfe",
+                            "ekflzjfekljkeflzjklefzjkfejzklfejzjfezlkjfezlfezjflzekfezlkjfzeljfezlkefzjfelzkjfezlkjfezlkjefzlkfezjlkfze"
+                        ]
+                    ]
+                }
+            }
+        ],
+        "map": {
+            "projection": "EPSG:3857",
+            "bbox": [
+                -738742.7267193604,
+                5348427.896939736,
+                237029.09750793458,
+                5897299.54806759
+            ],
+            "dpi": 72,
+            "rotation": 0,
+            "layers": [
+                {
+                    "type": "grid",
+                    "gridType": "points",
+                    "numberOfLines": [
+                        5,
+                        5
+                    ],
+                    "opacity": 1,
+                    "renderAsSvg": true,
+                    "labelProjection": "EPSG:4326",
+                    "font": {
+                        "name": [
+                            "Arial"
+                        ],
+                        "size": 8,
+                        "style": "BOLD"
+                    },
+                    "labelColor": "#000000",
+                    "gridColor": "#000000",
+                    "haloRadius": 3
+                },
+                {
+                    "type": "geojson",
+                    "style": {
+                        "version": 2,
+                        "graphicWidth": 18,
+                        "graphicOpacity": 1,
+                        "graphicFormat": "image/png",
+                        "type": "point",
+                        "[countryCode = 'SWE']": {
+                            "symbolizers": [
+                                {
+                                    "rotation": "[reportedCourse]",
+                                    "externalGraphic": "http://localhost:8080/spatial/image/position/f72a80"
+                                }
+                            ]
+                        },
+                        "[countryCode = 'DNK']": {
+                            "symbolizers": [
+                                {
+                                    "rotation": "[reportedCourse]",
+                                    "externalGraphic": "http://localhost:8080/spatial/image/position/1da3ef"
+                                }
+                            ]
+                        }
+                    },
+                    "geojson": {
+                        "type": "FeatureCollection",
+                        "features": [
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        -211618.3519980131,
+                                        5408515.030922718
+                                    ]
+                                },
+                                "properties": {
+                                    "positionTime": "2016-02-15T00:27:00.000Z",
+                                    "connectionId": "ae9a03a4-62c6-462e-a5ab-27c22439b7e6",
+                                    "status": "",
+                                    "reportedCourse": 296,
+                                    "calculatedSpeed": 0.00004229450788793472,
+                                    "movementType": "POS",
+                                    "activityType": "",
+                                    "reportedSpeed": 1,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "movementGuid": "8355c102-376c-4caa-8989-b10870318110",
+                                    "externalMarking": "FN462",
+                                    "source": "INMARSAT_C"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        -214957.93672181127,
+                                        5711866.180563786
+                                    ]
+                                },
+                                "properties": {
+                                    "positionTime": "2015-11-14T19:46:00.000Z",
+                                    "connectionId": "a6485bdc-6bbd-47ce-a320-931ec3ce95fe",
+                                    "status": "",
+                                    "reportedCourse": 150,
+                                    "calculatedSpeed": 0.000013676454319659775,
+                                    "movementType": "POS",
+                                    "activityType": "",
+                                    "reportedSpeed": 3,
+                                    "cfr": "SWE000007310",
+                                    "countryCode": "SWE",
+                                    "ircs": "SIVR",
+                                    "name": "COURAGE AF SKILLINGE",
+                                    "movementGuid": "138369e8-7718-4f8f-be1b-b883021a84b1",
+                                    "externalMarking": "SIN-602",
+                                    "source": "INMARSAT_C"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        -198482.65208440679,
+                                        5795265.081006711
+                                    ]
+                                },
+                                "properties": {
+                                    "positionTime": "2016-01-15T21:10:00.000Z",
+                                    "connectionId": "66cc1362-3540-4732-90df-127cb88414d9",
+                                    "status": "",
+                                    "reportedCourse": 185,
+                                    "calculatedSpeed": 0.0006165441358318829,
+                                    "movementType": "POS",
+                                    "activityType": "",
+                                    "reportedSpeed": 8,
+                                    "cfr": "SWE000007116",
+                                    "countryCode": "SWE",
+                                    "ircs": "SDLO",
+                                    "name": "AX�",
+                                    "movementGuid": "e15a5c39-0d7f-4d7a-8477-f4d8b4a1bdc7",
+                                    "externalMarking": "SD-248",
+                                    "source": "INMARSAT_C"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        -445277.9631730943,
+                                        5465442.183322749
+                                    ]
+                                },
+                                "properties": {
+                                    "positionTime": "2016-01-20T11:14:00.000Z",
+                                    "connectionId": "ae9a03a4-62c6-462e-a5ab-27c22439b7e6",
+                                    "status": "",
+                                    "reportedCourse": 5,
+                                    "calculatedSpeed": 0.0002607826338545693,
+                                    "movementType": "MAN",
+                                    "activityType": "",
+                                    "reportedSpeed": 6,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "movementGuid": "9e04df38-a78d-497c-b824-debe3a7ed0c0",
+                                    "externalMarking": "FN462",
+                                    "source": "MANUAL"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        -356222.37053847546,
+                                        5590090.3415273065
+                                    ]
+                                },
+                                "properties": {
+                                    "positionTime": "2016-01-21T11:10:00.000Z",
+                                    "connectionId": "ae9a03a4-62c6-462e-a5ab-27c22439b7e6",
+                                    "status": "",
+                                    "reportedCourse": 10,
+                                    "calculatedSpeed": 0.0006851399735903509,
+                                    "movementType": "MAN",
+                                    "activityType": "",
+                                    "reportedSpeed": 10,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "movementGuid": "966aa939-56ec-4d52-9737-1f819ff9630d",
+                                    "externalMarking": "FN462",
+                                    "source": "MANUAL"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "geojson",
+                    "style": {
+                        "version": 2,
+                        "strokeColor": "#F7580D",
+                        "strokeWidth": 2,
+                        "fillColor": "#ffffff",
+                        "fillOpacity": 0.3,
+                        "fontWeight": "BOLD",
+                        "fontColor": "#000000",
+                        "fontSize": 8,
+                        "fontFamily": "Arial",
+                        "labelAlign": "cm",
+                        "labelXOffset": -1,
+                        "labelYOffset": -1,
+                        "[radius = 14]": {
+                            "symbolizers": [
+                                {
+                                    "type": "point",
+                                    "pointRadius": 14
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "[printLabel]"
+                                }
+                            ]
+                        },
+                        "[radius = 7]": {
+                            "symbolizers": [
+                                {
+                                    "type": "point",
+                                    "pointRadius": 7
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "[printLabel]"
+                                }
+                            ]
+                        },
+                        "[radius = 8]": {
+                            "symbolizers": [
+                                {
+                                    "type": "point",
+                                    "pointRadius": 8
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "[printLabel]"
+                                }
+                            ]
+                        }
+                    },
+                    "geojson": {
+                        "type": "FeatureCollection",
+                        "features": [
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        -199315.75278969828,
+                                        5371063.937880468
+                                    ]
+                                },
+                                "properties": {
+                                    "printLabel": 31,
+                                    "radius": 14
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        -245570.7966899615,
+                                        5804983.021134931
+                                    ]
+                                },
+                                "properties": {
+                                    "printLabel": 2,
+                                    "radius": 7
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        -199128.3051310078,
+                                        5860678.113194472
+                                    ]
+                                },
+                                "properties": {
+                                    "printLabel": 5,
+                                    "radius": 8
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        -503535.1633549075,
+                                        5836777.323626366
+                                    ]
+                                },
+                                "properties": {
+                                    "printLabel": 3,
+                                    "radius": 7
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "baseURL": "http://tile.openstreetmap.org",
+                    "type": "OSM",
+                    "resolutions": [
+                        156543.03390625,
+                        78271.516953125,
+                        39135.7584765625,
+                        19567.87923828125,
+                        9783.939619140625,
+                        4891.9698095703125,
+                        2445.9849047851562,
+                        1222.9924523925781,
+                        611.4962261962891,
+                        305.74811309814453,
+                        152.87405654907226,
+                        76.43702827453613,
+                        38.218514137268066,
+                        19.109257068634033,
+                        9.554628534317017,
+                        4.777314267158508,
+                        2.388657133579254,
+                        1.194328566789627,
+                        0.5971642833948135
+                    ],
+                    "opacity": 1,
+                    "maxExtent": [
+                        -20037508.34,
+                        -20037508.34,
+                        20037508.34,
+                        20037508.34
+                    ],
+                    "tileSize": [
+                        256,
+                        256
+                    ],
+                    "imageExtension": "png"
+                }
+            ]
+        },
+        "legend": {
+            "name": "LEGEND",
+            "classes": [
+                {
+                    "name": "Positions",
+                    "icons": [
+                        "http://localhost:8080/spatial/image/legend/72b7816b-91dd-4f9c-a6ff-e82eb7bd8b32"
+                    ]
+                }
+            ]
+        }
+    }
+}
