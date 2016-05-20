@@ -53,6 +53,7 @@ import org.opengis.feature.simple.SimpleFeature;
 import java.awt.*;
 import java.awt.geom.*;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -161,7 +162,7 @@ public final class GeoJsonLayer extends AbstractFeatureSourceLayer {
                 Property popupX = feature.getProperty("popupX");
                 Property popupY = feature.getProperty("popupY");
 
-                if (showPopupProperty.getValue() instanceof Boolean && !((Boolean)showPopupProperty.getValue())) {
+                if (showPopupProperty != null && showPopupProperty.getValue() instanceof Boolean && !((Boolean)showPopupProperty.getValue())) {
                     GeoJsonParam geoJsonParam = (GeoJsonParam)this.params;
                     List<String> popupLines = new ArrayList<>();
                     StringBuilder buffer = new StringBuilder();
@@ -215,10 +216,10 @@ public final class GeoJsonLayer extends AbstractFeatureSourceLayer {
                     lineWidth -=  blueStripeArea.getBounds().width; //remove the blue stripe on the left
                     startXPixel += blueStripeArea.getBounds().width;
                     Font font = graphics2D.getFont();
+                    font = new Font(Font.SANS_SERIF, font.getStyle(), font.getSize());
 
                     for(Map.Entry<String, String> prop: propsToDisplay.entrySet()) {
                         if (geoJsonParam.popupProperties.showAttrNames) {
-                            font.deriveFont(Font.BOLD);
                             graphics2D.setFont(font.deriveFont(Font.BOLD));
                             fontMetrics = graphics2D.getFontMetrics();
 
@@ -227,7 +228,7 @@ public final class GeoJsonLayer extends AbstractFeatureSourceLayer {
                             while (fontMetrics.stringWidth(buffer.toString()) > lineWidth) {
                                 buffer.deleteCharAt(buffer.length()-1);
                             }
-                            graphics2D.drawString(StringEscapeUtils.escapeJava(buffer.toString()), (float) startXPixel, (float) startYPixel + 11);
+                            graphics2D.drawString(buffer.toString(), (float) startXPixel, (float) startYPixel + 11);
                         }
 
                         int propLabelWidth = fontMetrics.stringWidth(buffer.toString());
@@ -324,6 +325,7 @@ public final class GeoJsonLayer extends AbstractFeatureSourceLayer {
          */
         public String geoJson;
 
-        public PopupParam popupProperties;
+        @HasDefaultValue
+        public PopupParam popupProperties = PopupParam.getDefaultPopupParam();
     }
 }

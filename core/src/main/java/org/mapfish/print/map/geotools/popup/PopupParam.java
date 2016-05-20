@@ -30,17 +30,29 @@ import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.opengis.referencing.operation.MathTransform;
 
+import javax.swing.*;
+
 /**
  * Parameters relevant to creating Grid layers.
  * CSOFF: VisibilityModifier
  */
 public final class PopupParam{
 
+    private static PopupParam DEFAULT = null;
 
-   // @HasDefaultValue
+    public static final synchronized PopupParam getDefaultPopupParam() {
+        if (DEFAULT == null) {
+            PopupParam param = new PopupParam();
+            param.dataFields = new DataFieldParam[]{};
+            DEFAULT = param;
+        }
+        return DEFAULT;
+    }
+
+    @HasDefaultValue
     public Boolean showAttrNames = false;
 
-   // @OneOf("dataFields")
+    @OneOf("dataFields")
     public DataFieldParam[] dataFields;
 
     public PopupStyle popupStyle;

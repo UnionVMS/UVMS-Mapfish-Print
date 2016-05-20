@@ -23,14 +23,14 @@ templates:
         default: "The geographic information on this map was derived from digital databases from UnionVMS. There are no warranties, expressed or implied, including the warranty of merchantability or fitness for a particular purpose, accompanying this product. However, notification of any errors will be appreciated, Tel."
       description: !string
         maxLength: 120
-      datasource: !datasource
-        attributes:
-          displayName: !string {}
-          table: !table {}
-      overlayLayers: !staticLayers
-            default:
-              layers:
-                - type: "popupProperties"
+   #   datasource: !datasource
+    #    attributes:
+    #      displayName: !string {}
+    #      table: !table {}
+   #   overlayLayers: !staticLayers
+    #        default:
+     #         layers:
+      #          - type: "popupProperties"
       map: !map
         maxDpi: 300
         dpiSuggestions: [72, 91, 128, 254, 300]
@@ -52,7 +52,117 @@ templates:
           font: Helvetica
           backgroundColor: "rgba(0, 0, 0, 0)"
           align: "left"
+      legend: !legend {}
     processors:
+    - !configureHttpRequests
+      httpProcessors:
+        - !mapUri
+            mapping:
+              (http)://localhost(:9001)/(.*) : "$1://localhost:8080/$3"
+        - !forwardHeaders
+          headers: [Referer, User-Agent]
+    - !reportBuilder
+      directory: '.'
+    - !createScalebar {}
     - !createMap
       inputMapper: {map: map}
       outputMapper: {mapSubReport: mapSubReport}
+    - !createDataSource
+      reportTemplate: A4_Portrait_Copyright_Table.jrxml
+      reportKey: reportTemplate
+      processors:
+        - !prepareTable {}
+    - !createNorthArrow
+      inputMapper: {map: map, northArrowDef: northArrow}
+      outputMapper: {northArrowSubReport: northArrowSubReport}
+    - !prepareLegend
+      maxWidth: 100
+      dpi: 100
+      template: legend.jrxml
+      inputMapper: {legend: legend}
+      outputMapper:
+        legend: legend
+        legendSubReport: legendSubReport
+        numberOfLegendRows: numberOfLegendRows
+    tableData: jrDataSource
+  A4 landscape: !template
+    reportTemplate: A4_Landscape.jrxml
+    attributes:
+      copyrightTitle: !string
+        default: "COPYRIGHT"
+        maxLength: 25
+      legendTitle: !string
+        default: "LEGEND"
+        maxLength: 25
+      title: !string
+        maxLength: 25
+      subtitle: !string
+        maxLength: 25
+      disclaimer: !string
+        default: "The geographic information on this map was derived from digital databases from UnionVMS. There are no warranties, expressed or implied, including the warranty of merchantability or fitness for a particular purpose, accompanying this product. However, notification of any errors will be appreciated, Tel."
+      description: !string
+        maxLength: 120
+      datasource: !datasource
+        attributes:
+          displayName: !string {}
+          table: !table {}
+      map: !map
+        maxDpi: 300
+        dpiSuggestions: [72, 91, 128, 254, 300]
+        height: 450
+        width: 800
+      northArrowDef: !northArrow
+        size: 40
+        default:
+          graphic: "file://north-arrow.png"
+      scalebar: !scalebar
+        width: 100
+        height: 16
+        default:
+          intervals: 4
+          fontSize: 7
+          lineWidth: 1
+          lockUnits: false
+          unit: m
+          font: Helvetica
+          backgroundColor: "rgba(0, 0, 0, 0)"
+          align: "left"
+      legend: !legend {}
+#      overlayLayers: !staticLayers
+ #                 default:
+  #                  layers:
+    #                  - type: "popupProperties"
+    processors:
+    - !configureHttpRequests
+      httpProcessors:
+        - !mapUri
+            mapping:
+              (http)://localhost(:9001)/(.*) : "$1://localhost:8080/$3"
+        - !forwardHeaders
+          headers: [Referer, User-Agent]
+    - !reportBuilder
+      directory: '.'
+    - !createMap
+      inputMapper: {map: map}
+      outputMapper: {mapSubReport: mapSubReport}
+    - !createDataSource
+      reportTemplate: A4_Landscape_Copyright_Table.jrxml
+      reportKey: reportTemplate
+      processors:
+        - !prepareTable {}
+    - !createScalebar {}
+    - !createNorthArrow
+      inputMapper: {map: map, northArrowDef: northArrow}
+      outputMapper: {northArrowSubReport: northArrowSubReport}
+    - !prepareLegend
+      maxWidth: 100
+      dpi: 100
+      template: legend.jrxml
+      inputMapper: {legend: legend}
+      outputMapper:
+        legend: legend
+        legendSubReport: legendSubReport
+        numberOfLegendRows: numberOfLegendRows
+    tableData: jrDataSource
+
+

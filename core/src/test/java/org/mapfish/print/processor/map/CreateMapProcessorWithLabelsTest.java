@@ -92,7 +92,7 @@ public class CreateMapProcessorWithLabelsTest extends AbstractMapfishSpringTest 
         });
 
         final Configuration config = configurationFactory.getConfig(getFile(BASE_DIR + "config.yaml"));
-        final Template template = config.getTemplate("A4 portrait");
+        final Template template = config.getTemplate("A4 landscape");
         Values values = new Values(requestData, template, parser, getTaskDirectory(), this.httpRequestFactory, new File("."));
         template.getProcessorGraph().createTask(values).invoke();
 
@@ -106,6 +106,6 @@ public class CreateMapProcessorWithLabelsTest extends AbstractMapfishSpringTest 
     }
 
     public static PJsonObject loadJsonRequestData() throws IOException {
-        return parseJSONObjectFromFile(CreateMapProcessorWithLabelsTest.class, BASE_DIR + "requestData-A4-portrait-with-grid.json");
+        return parseJSONObjectFromFile(CreateMapProcessorWithLabelsTest.class, BASE_DIR + "requestData-A4-landscape-with-grid.json");
     }
 }

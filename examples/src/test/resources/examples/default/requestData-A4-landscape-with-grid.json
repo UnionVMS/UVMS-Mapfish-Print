@@ -1,68 +1,35 @@
 {
     "layout": "A4 landscape",
     "attributes": {
-        "copyrightTitle": "COPYRIGHT",
-        "legendTitle": "LEGEND",
         "title": "a",
         "subtitle": "a",
         "description": "a",
-        "datasource": [
-            {
-                "displayName": "Copyright",
-                "table": {
-                    "columns": [
-                        "layer",
-                        "copyright"
-                    ],
-                    "data": [
-                        [
-                            "eez",
-                            "cxlmkvclmxkvcmlvcxmvkcxmlvclmkvcmlvckxmlkvxcvcxmlcvxmklcvxmlvcxklmvckxmcvkxlmcvxklm"
-                        ],
-                        [
-                            "rfmo",
-                            "ekflzjfekljkeflzjklefzjkfejzklfejzjfezlkjfezlfezjflzekfezlkjfzeljfezlkefzjfelzkjfezlkjfezlkjefzlkfezjlkfze"
-                        ],
-                        [
-                            "eefzkmlfe",
-                            "ekflzjfekljkeflzjklefzjkfejzklfejzjfezlkjfezlfezjflzekfezlkjfzeljfezlkefzjfelzkjfezlkjfezlkjefzlkfezjlkfze"
-                        ]
-                    ]
-                }
-            }
-        ],
         "map": {
             "projection": "EPSG:3857",
-            "bbox": [
-                -738742.7267193604,
-                5348427.896939736,
-                237029.09750793458,
-                5897299.54806759
-            ],
+            "bbox": [-273640.4259078598,
+                5343206.652682994,
+                -161993.84726108552,
+                5406007.853171805],
             "dpi": 72,
             "rotation": 0,
-            "layers": [
-                {
-                    "type": "grid",
-                    "gridType": "points",
-                    "numberOfLines": [
-                        5,
-                        5
-                    ],
-                    "opacity": 1,
-                    "renderAsSvg": true,
-                    "labelProjection": "EPSG:4326",
-                    "font": {
-                        "name": [
-                            "Arial"
-                        ],
-                        "size": 8,
-                        "style": "BOLD"
-                    },
-                    "labelColor": "#000000",
-                    "gridColor": "#000000",
-                    "haloRadius": 3
+            "layers": [{
+                "type": "grid",
+                "gridType": "points",
+                "numberOfLines": [5,
+                    5],
+                "opacity": 1,
+                "renderAsSvg": true,
+                "labelProjection": "EPSG:3857",
+                "labelFomat": "%1.2f%s",
+                "font": {
+                    "name": ["Arial"],
+                    "size": 8,
+                    "style": "BOLD"
                 },
+                "labelColor": "#000000",
+                "gridColor": "#000000",
+                "haloRadius": 3
+            },
                 {
                     "type": "geojson",
                     "style": {
@@ -72,161 +39,118 @@
                         "graphicFormat": "image/png",
                         "type": "point",
                         "[countryCode = 'SWE']": {
-                            "symbolizers": [
-                                {
-                                    "rotation": "[reportedCourse]",
-                                    "externalGraphic": "http://localhost:8080/spatial/image/position/f72a80"
-                                }
-                            ]
+                            "symbolizers": [{
+                                "rotation": "[reportedCourse]",
+                                "externalGraphic": "http://localhost:9001/spatial/image/position/815FB3"
+                            }]
                         },
                         "[countryCode = 'DNK']": {
-                            "symbolizers": [
-                                {
-                                    "rotation": "[reportedCourse]",
-                                    "externalGraphic": "http://localhost:8080/spatial/image/position/1da3ef"
-                                }
-                            ]
+                            "symbolizers": [{
+                                "rotation": "[reportedCourse]",
+                                "externalGraphic": "http://localhost:9001/spatial/image/position/B5B938"
+                            }]
                         }
                     },
                     "geojson": {
                         "type": "FeatureCollection",
-                        "features": [
-                            {
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        -211618.3519980131,
-                                        5408515.030922718
-                                    ]
-                                },
-                                "properties": {
-                                    "positionTime": "2016-02-15T00:27:00.000Z",
-                                    "connectionId": "ae9a03a4-62c6-462e-a5ab-27c22439b7e6",
-                                    "status": "",
-                                    "reportedCourse": 296,
-                                    "calculatedSpeed": 0.00004229450788793472,
-                                    "movementType": "POS",
-                                    "activityType": "",
-                                    "reportedSpeed": 1,
-                                    "cfr": "SWE000000069",
-                                    "countryCode": "DNK",
-                                    "ircs": "OZGH",
-                                    "name": "JEANNE",
-                                    "movementGuid": "8355c102-376c-4caa-8989-b10870318110",
-                                    "externalMarking": "FN462",
-                                    "source": "INMARSAT_C"
-                                }
+                        "features": [{
+                            "type": "Feature",
+                            "id": 325,
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [-220523.91126147498,
+                                    5374740.949819016]
                             },
-                            {
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        -214957.93672181127,
-                                        5711866.180563786
-                                    ]
-                                },
-                                "properties": {
-                                    "positionTime": "2015-11-14T19:46:00.000Z",
-                                    "connectionId": "a6485bdc-6bbd-47ce-a320-931ec3ce95fe",
-                                    "status": "",
-                                    "reportedCourse": 150,
-                                    "calculatedSpeed": 0.000013676454319659775,
-                                    "movementType": "POS",
-                                    "activityType": "",
-                                    "reportedSpeed": 3,
-                                    "cfr": "SWE000007310",
-                                    "countryCode": "SWE",
-                                    "ircs": "SIVR",
-                                    "name": "COURAGE AF SKILLINGE",
-                                    "movementGuid": "138369e8-7718-4f8f-be1b-b883021a84b1",
-                                    "externalMarking": "SIN-602",
-                                    "source": "INMARSAT_C"
-                                }
-                            },
-                            {
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        -198482.65208440679,
-                                        5795265.081006711
-                                    ]
-                                },
-                                "properties": {
-                                    "positionTime": "2016-01-15T21:10:00.000Z",
-                                    "connectionId": "66cc1362-3540-4732-90df-127cb88414d9",
-                                    "status": "",
-                                    "reportedCourse": 185,
-                                    "calculatedSpeed": 0.0006165441358318829,
-                                    "movementType": "POS",
-                                    "activityType": "",
-                                    "reportedSpeed": 8,
-                                    "cfr": "SWE000007116",
-                                    "countryCode": "SWE",
-                                    "ircs": "SDLO",
-                                    "name": "AX�",
-                                    "movementGuid": "e15a5c39-0d7f-4d7a-8477-f4d8b4a1bdc7",
-                                    "externalMarking": "SD-248",
-                                    "source": "INMARSAT_C"
-                                }
-                            },
-                            {
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        -445277.9631730943,
-                                        5465442.183322749
-                                    ]
-                                },
-                                "properties": {
-                                    "positionTime": "2016-01-20T11:14:00.000Z",
-                                    "connectionId": "ae9a03a4-62c6-462e-a5ab-27c22439b7e6",
-                                    "status": "",
-                                    "reportedCourse": 5,
-                                    "calculatedSpeed": 0.0002607826338545693,
-                                    "movementType": "MAN",
-                                    "activityType": "",
-                                    "reportedSpeed": 6,
-                                    "cfr": "SWE000000069",
-                                    "countryCode": "DNK",
-                                    "ircs": "OZGH",
-                                    "name": "JEANNE",
-                                    "movementGuid": "9e04df38-a78d-497c-b824-debe3a7ed0c0",
-                                    "externalMarking": "FN462",
-                                    "source": "MANUAL"
-                                }
-                            },
-                            {
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        -356222.37053847546,
-                                        5590090.3415273065
-                                    ]
-                                },
-                                "properties": {
-                                    "positionTime": "2016-01-21T11:10:00.000Z",
-                                    "connectionId": "ae9a03a4-62c6-462e-a5ab-27c22439b7e6",
-                                    "status": "",
-                                    "reportedCourse": 10,
-                                    "calculatedSpeed": 0.0006851399735903509,
-                                    "movementType": "MAN",
-                                    "activityType": "",
-                                    "reportedSpeed": 10,
-                                    "cfr": "SWE000000069",
-                                    "countryCode": "DNK",
-                                    "ircs": "OZGH",
-                                    "name": "JEANNE",
-                                    "movementGuid": "966aa939-56ec-4d52-9737-1f819ff9630d",
-                                    "externalMarking": "FN462",
-                                    "source": "MANUAL"
-                                }
+                            "properties": {
+                                "positionTime": "2016-04-15T13:09:00.000Z",
+                                "connectionId": "ae9a03a4-62c6-462e-a5ab-27c22439b7e6",
+                                "status": "",
+                                "reportedCourse": 275,
+                                "calculatedSpeed": 0.0019474522863363547,
+                                "movementType": "POS",
+                                "activityType": "",
+                                "reportedSpeed": 10,
+                                "cfr": "SWE000000069",
+                                "countryCode": "DNK",
+                                "ircs": "OZGH",
+                                "name": "JEANNE",
+                                "movementGuid": "fc08c4c2-d56c-4bec-b39d-70a3af12555a",
+                                "externalMarking": "FN462",
+                                "source": "INMARSAT_C",
+                                "overlayHidden": true
                             }
-                        ]
+                        }]
+                    },
+                    "popupProperties": {
+                        "showAttrNames": true,
+                        "dataFields": [{
+                            "displayName": "F.S.",
+                            "propName": "countryCode"
+                        },
+                            {
+                                "displayName": "Ext. Mark.",
+                                "propName": "externalMarking"
+                            },
+                            {
+                                "displayName": "IRCS",
+                                "propName": "ircs"
+                            },
+                            {
+                                "displayName": "CFR",
+                                "propName": "cfr"
+                            },
+                            {
+                                "displayName": "Date",
+                                "propName": "positionTime"
+                            },
+                            {
+                                "displayName": "Lon",
+                                "propName": "disp_lon"
+                            },
+                            {
+                                "displayName": "Lat",
+                                "propName": "disp_lat"
+                            },
+                            {
+                                "displayName": "Status",
+                                "propName": "status"
+                            },
+                            {
+                                "displayName": "MS",
+                                "propName": "reportedSpeed"
+                            },
+                            {
+                                "displayName": "CS",
+                                "propName": "calculatedSpeed"
+                            },
+                            {
+                                "displayName": "Course",
+                                "propName": "reportedCourse"
+                            },
+                            {
+                                "displayName": "Msg.Type",
+                                "propName": "movementType"
+                            },
+                            {
+                                "displayName": "Act. type",
+                                "propName": "activityType"
+                            },
+                            {
+                                "displayName": "Source",
+                                "propName": "source"
+                            },
+                            {
+                                "displayName": "Name",
+                                "propName": "name"
+                            }],
+                        "popupStyle": {
+                            "width": 181,
+                            "radius": 5,
+                            "border": {
+                                "color": "#089fd7",
+                                "width": 8
+                            }
+                        }
                     }
                 },
                 {
@@ -244,110 +168,1006 @@
                         "labelAlign": "cm",
                         "labelXOffset": -1,
                         "labelYOffset": -1,
-                        "[radius = 14]": {
-                            "symbolizers": [
-                                {
-                                    "type": "point",
-                                    "pointRadius": 14
-                                },
-                                {
-                                    "type": "text",
-                                    "label": "[printLabel]"
-                                }
-                            ]
-                        },
-                        "[radius = 7]": {
-                            "symbolizers": [
-                                {
-                                    "type": "point",
-                                    "pointRadius": 7
-                                },
+                        "[radius = 19]": {
+                            "symbolizers": [{
+                                "type": "point",
+                                "pointRadius": 19
+                            },
                                 {
                                     "type": "text",
                                     "label": "[printLabel]"
-                                }
-                            ]
-                        },
-                        "[radius = 8]": {
-                            "symbolizers": [
-                                {
-                                    "type": "point",
-                                    "pointRadius": 8
-                                },
-                                {
-                                    "type": "text",
-                                    "label": "[printLabel]"
-                                }
-                            ]
+                                }]
                         }
                     },
                     "geojson": {
                         "type": "FeatureCollection",
-                        "features": [
-                            {
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        -199315.75278969828,
-                                        5371063.937880468
-                                    ]
-                                },
-                                "properties": {
-                                    "printLabel": 31,
-                                    "radius": 14
-                                }
+                        "features": [{
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [-199355.6312490486,
+                                    5370991.38077695]
                             },
-                            {
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        -245570.7966899615,
-                                        5804983.021134931
-                                    ]
-                                },
-                                "properties": {
-                                    "printLabel": 2,
-                                    "radius": 7
-                                }
-                            },
-                            {
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        -199128.3051310078,
-                                        5860678.113194472
-                                    ]
-                                },
-                                "properties": {
-                                    "printLabel": 5,
-                                    "radius": 8
-                                }
-                            },
-                            {
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        -503535.1633549075,
-                                        5836777.323626366
-                                    ]
-                                },
-                                "properties": {
-                                    "printLabel": 3,
-                                    "radius": 7
-                                }
+                            "properties": {
+                                "printLabel": 38,
+                                "radius": 19
                             }
-                        ]
+                        }]
+                    }
+                },
+                {
+                    "type": "geojson",
+                    "style": {
+                        "version": 2,
+                        "strokeWidth": 2,
+                        "strokeDashstyle": "solid",
+                        "strokeLinecap": "round",
+                        "type": "line",
+                        "[speedOverGround >= 0 and speedOverGround < 2]": {
+                            "symbolizers": [{
+                                "strokeWidth": 5,
+                                "strokeColor": "#ffffff"
+                            },
+                                {
+                                    "strokeColor": "#1a9641"
+                                }]
+                        },
+                        "[speedOverGround >= 2 and speedOverGround < 5]": {
+                            "symbolizers": [{
+                                "strokeWidth": 5,
+                                "strokeColor": "#ffffff"
+                            },
+                                {
+                                    "strokeColor": "#a6d96a"
+                                }]
+                        },
+                        "[speedOverGround >= 5 and speedOverGround < 8]": {
+                            "symbolizers": [{
+                                "strokeWidth": 5,
+                                "strokeColor": "#ffffff"
+                            },
+                                {
+                                    "strokeColor": "#fdae61"
+                                }]
+                        },
+                        "[speedOverGround < 0 or speedOverGround >= 8]": {
+                            "symbolizers": [{
+                                "strokeWidth": 5,
+                                "strokeColor": "#ffffff"
+                            },
+                                {
+                                    "strokeColor": "#d7191c"
+                                }]
+                        }
+                    },
+                    "geojson": {
+                        "type": "FeatureCollection",
+                        "features": [{
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": [[-199261.8885199597,
+                                    5371063.9378804695],
+                                    [-199261.8885199597,
+                                        5371063.9378804695]]
+                            },
+                            "properties": {
+                                "courseOverGround": 0,
+                                "speedOverGround": 0,
+                                "duration": 0,
+                                "distance": 0,
+                                "cfr": "SWE000000069",
+                                "countryCode": "DNK",
+                                "ircs": "OZGH",
+                                "name": "JEANNE",
+                                "trackId": "4",
+                                "segmentCategory": "IN_PORT",
+                                "externalMarking": "FN462"
+                            }
+                        },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "1247",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "1247",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "1247",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "1247",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "1247",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-220523.91126147498,
+                                        5374740.949819016],
+                                        [-311360.61574878625,
+                                            5385013.660335813]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 277,
+                                    "speedOverGround": 0.0027621542730601524,
+                                    "duration": 12960,
+                                    "distance": 35.797519378859576,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "30",
+                                    "segmentCategory": "GAP",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-211618.3519980131,
+                                            5408515.030922718]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 342,
+                                    "speedOverGround": 0.000005929678947015066,
+                                    "duration": 2601600,
+                                    "distance": 15.426652748554396,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "1248",
+                                    "segmentCategory": "EXIT_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-220523.91126147498,
+                                            5374740.949819016]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 280,
+                                    "speedOverGround": 0.0019474522863363547,
+                                    "duration": 4320,
+                                    "distance": 8.412993876973053,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "30",
+                                    "segmentCategory": "EXIT_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-211618.3519980131,
+                                        5408515.030922718],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 162,
+                                    "speedOverGround": 0.0014935140057383924,
+                                    "duration": 10320,
+                                    "distance": 15.41306453922021,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "ENTER_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199484.52750154625,
+                                        5370757.58594638],
+                                        [-199484.52750154625,
+                                            5370757.58594638]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199484.52750154625,
+                                        5370757.58594638],
+                                        [-199484.52750154625,
+                                            5370757.58594638]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199261.8885199597,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199484.52750154625,
+                                        5370757.58594638],
+                                        [-199484.52750154625,
+                                            5370757.58594638]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199484.52750154625,
+                                        5370757.58594638],
+                                        [-199484.52750154625,
+                                            5370910.760649976]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199484.52750154625,
+                                        5370757.58594638],
+                                        [-199484.52750154625,
+                                            5370757.58594638]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199484.52750154625,
+                                        5370910.760649976],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 36,
+                                    "speedOverGround": 2.8617401996750302e-8,
+                                    "duration": 2593560,
+                                    "distance": 0.07422094912269171,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199373.20801075295,
+                                        5371063.9378804695],
+                                        [-199373.20801075295,
+                                            5371063.9378804695]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199484.52750154625,
+                                        5370757.58594638],
+                                        [-199484.52750154625,
+                                            5370757.58594638]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199484.52750154625,
+                                        5370757.58594638],
+                                        [-199484.52750154625,
+                                            5370757.58594638]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199484.52750154625,
+                                        5370757.58594638],
+                                        [-199484.52750154625,
+                                            5370910.760649976]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199484.52750154625,
+                                        5370910.760649976],
+                                        [-199484.52750154625,
+                                            5370757.58594638]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 0,
+                                    "speedOverGround": 0,
+                                    "duration": 0,
+                                    "distance": 0,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            },
+                            {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [[-199261.8885199597,
+                                        5371063.9378804695],
+                                        [-199484.52750154625,
+                                            5370757.58594638]]
+                                },
+                                "properties": {
+                                    "courseOverGround": 216,
+                                    "speedOverGround": 6.06679285976372e-8,
+                                    "duration": 2446800,
+                                    "distance": 0.1484422876926987,
+                                    "cfr": "SWE000000069",
+                                    "countryCode": "DNK",
+                                    "ircs": "OZGH",
+                                    "name": "JEANNE",
+                                    "trackId": "4",
+                                    "segmentCategory": "IN_PORT",
+                                    "externalMarking": "FN462"
+                                }
+                            }]
                     }
                 },
                 {
                     "baseURL": "http://tile.openstreetmap.org",
                     "type": "OSM",
-                    "resolutions": [
-                        156543.03390625,
+                    "resolutions": [156543.03390625,
                         78271.516953125,
                         39135.7584765625,
                         19567.87923828125,
@@ -365,33 +1185,42 @@
                         4.777314267158508,
                         2.388657133579254,
                         1.194328566789627,
-                        0.5971642833948135
-                    ],
+                        0.5971642833948135],
                     "opacity": 1,
-                    "maxExtent": [
-                        -20037508.34,
+                    "maxExtent": [-20037508.34,
                         -20037508.34,
                         20037508.34,
-                        20037508.34
-                    ],
-                    "tileSize": [
-                        256,
-                        256
-                    ],
+                        20037508.34],
+                    "tileSize": [256,
+                        256],
                     "imageExtension": "png"
-                }
-            ]
+                }]
         },
         "legend": {
-            "name": "LEGEND",
-            "classes": [
+            "name": "",
+            "classes": [{
+                "name": "Positions",
+                "icons": ["http://localhost:9001/spatial/image/legend/1ce3efb0-8acf-49cc-b683-ab529f413bea"]
+            },
                 {
-                    "name": "Positions",
-                    "icons": [
-                        "http://localhost:8080/spatial/image/legend/72b7816b-91dd-4f9c-a6ff-e82eb7bd8b32"
-                    ]
-                }
-            ]
-        }
+                    "name": "Segments",
+                    "icons": ["http://localhost:9001/spatial/image/legend/fe4da3f9-39ba-49c9-9ce9-488102e4eee8"]
+                }]
+        },
+        "datasource": [{
+            "displayName": "",
+            "table": {
+                "columns": ["layer",
+                    "copyright"],
+                "data": [["Positions",
+                    "VMS Positions from UnionVMS."],
+                    ["Segments",
+                        "VMS Segments from UnionVMS."],
+                    ["OpenStreetMap",
+                        "© OpenStreetMap contributors."]]
+            }
+        }],
+        "copyrightTitle": "COPYRIGHT",
+        "legendTitle": "LEGEND"
     }
 }

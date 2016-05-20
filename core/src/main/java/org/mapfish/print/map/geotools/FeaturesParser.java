@@ -29,7 +29,6 @@ import com.google.common.io.Files;
 import com.vividsolutions.jts.geom.Geometry;
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
-import org.geotools.geojson.feature.FeatureJSON;
 import org.geotools.referencing.CRS;
 import org.geotools.referencing.crs.DefaultEngineeringCRS;
 import org.json.JSONArray;
@@ -41,6 +40,7 @@ import org.mapfish.print.FileUtils;
 import org.mapfish.print.PrintException;
 import org.mapfish.print.config.Template;
 import org.mapfish.print.http.MfClientHttpRequestFactory;
+import org.geotools.geojson.feature.PFeatureJSON;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.NoSuchAuthorityCodeException;
@@ -155,7 +155,7 @@ public class FeaturesParser {
     private SimpleFeatureCollection readFeatureCollection(final String geojsonData) throws IOException {
         String convertedGeojsonObject = convertToGeoJsonCollection(geojsonData);
 
-        FeatureJSON geoJsonReader = new FeatureJSON();
+        PFeatureJSON geoJsonReader = new PFeatureJSON();
         final SimpleFeatureType featureType = createFeatureType(convertedGeojsonObject);
         if (featureType != null) {
             geoJsonReader.setFeatureType(featureType);
