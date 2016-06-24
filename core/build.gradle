@@ -75,14 +75,21 @@ configurations {
 dependencies {
     def springSecurityVersion = "3.2.5.RELEASE"
     def slf4jVersion = '1.7.6'
+    def usm4uvmsVersion = '2.0.11'
 
     compile (
             "org.springframework:spring-context:$project.springVersion",
             "org.springframework:spring-web:$project.springVersion",
             "org.springframework:spring-webmvc:$project.springVersion",
             "org.springframework.security:spring-security-config:$springSecurityVersion",
-            "org.springframework.security:spring-security-web:$springSecurityVersion"
+            "org.springframework.security:spring-security-web:$springSecurityVersion",
     )
+
+    compile ("eu.europa.ec.fisheries.uvms:usm4uvms:$usm4uvmsVersion") {
+       exclude group: 'org.geotools', module: 'gt-geojson'
+        //exclude group: 'eu.europa.ec.fisheries.uvms', module: 'uvms-commons'
+
+    }
     def metricsVersion = "3.0.2"
     metrics (
             "com.codahale.metrics:metrics-core:$metricsVersion",
@@ -102,7 +109,8 @@ dependencies {
             "org.geotools:gt-wms:$geotoolsVersion",
             "org.geotools.xsd:gt-xsd-gml3:$geotoolsVersion",
             "org.geotools:gt-svg:$geotoolsVersion",
-            "org.geotools:gt-cql:$geotoolsVersion"
+            "org.geotools:gt-cql:$geotoolsVersion",
+            "org.geotools:gt-metadata:$geotoolsVersion"
     )
     jasper (
             "net.sf.jasperreports:jasperreports:$project.jasperReportVersion",

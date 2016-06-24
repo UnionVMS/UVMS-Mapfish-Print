@@ -35,6 +35,24 @@ task show << {
     println configurations.archives.files
 }
 
+def getMavenSettingsCredentials = {
+    String userHome = System.getProperty( "user.home" );
+    File mavenSettings = new File(userHome, ".m2/settings.xml")
+    def xmlSlurper = new XmlSlurper()
+    def output = xmlSlurper.parse(mavenSettings)
+    return output."servers"."server"
+}
+
+def getCredentials = {
+    def entries = getMavenSettingsCredentials()
+    for (entry in entries) {
+        if ( entry."id".text() == "digit-snapshots" ) {
+            return [username: entry.username.text(), password: entry.password.text()]
+        }
+    }
+}
+
+
 /*
  * This upload Archives configuration I took from:
  * http://jedicoder.blogspot.ch/2011/11/automated-gradle-project-deployment-to.html
@@ -43,24 +61,32 @@ task show << {
  */
 // need to sign jars for uploading releases to maven central
 if (Boolean.parseBoolean(enablePublishing)) {
-    apply plugin: 'signing'
+    /*apply plugin: 'signing'
     signing {
         sign configurations.archives
     }
-
+*/
     uploadArchives {
+        def creds = getCredentials()
+
         dependsOn tasks.getByPath(':core:test')
         repositories {
             mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
+                repository(url: "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare/") {
+                    authentication(userName: creds["username"], password: creds["password"])
+                }
+                snapshotRepository(url: "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare-snapshots/") {
+                    authentication(userName: creds["username"], password: creds["password"])
+                }
+               /* beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }*/
+/*
                 repository(url: "https://$host/service/local/staging/deploy/maven2") {
                     authentication(userName: sonatypeUsername, password: sonatypePassword)
                 }
                 snapshotRepository(url: "https://$host/content/repositories/snapshots")  {
                     authentication(userName: sonatypeUsername, password: sonatypePassword)
                     uniqueVersion = false
-                }
+                }*/
                 def extAnd = {file, ext ->
                     file.name.endsWith(ext) || file.name.endsWith(".asc") || file.name.endsWith(".pom")
                 }
@@ -99,12 +125,10 @@ if (Boolean.parseBoolean(enablePublishing)) {
 
                 ['lib', 'war', 'cli', 'deb'].each { filterName ->
                     pom(filterName).project {
-                        url 'http://mapfish.github.io/mapfish-print'
+                        url 'https://webgate.ec.europa.eu/CITnet/svn/UNIONVMS/trunk/mapfish-print'
 
                         scm {
-                            url 'scm:git@github.com:mapfish/mapfish-print.git'
-                            connection 'scm:git@github.com:mapfish/mapfish-print.git'
-                            developerConnection 'scm:git@github.com:mapfish/mapfish-print.git'
+                            developerConnection 'scm:svn:https://webgate.ec.europa.eu/CITnet/svn/UNIONVMS/trunk/mapfish-print'
                         }
 
                         licenses {
@@ -115,7 +139,7 @@ if (Boolean.parseBoolean(enablePublishing)) {
                             }
                         }
 
-                        developers {
+                      /*  developers {
                             developer {
                                 id 'jesseeichar'
                                 name 'Jesse Eichar'
@@ -137,7 +161,7 @@ if (Boolean.parseBoolean(enablePublishing)) {
                                 name 'Milo van der Linden'
                             }
                         }
-                        mailingLists {
+                         mailingLists {
                             mailingList {
                                 name ='Users'
                                 subscribe='mapfish-print-users+subscribe@googlegroups.com'
@@ -145,7 +169,7 @@ if (Boolean.parseBoolean(enablePublishing)) {
                                 post='mapfish-print-users@googlegroups.com'
                                 archive='https://groups.google.com/forum/#!forum/mapfish-print-users'
                             }
-                        }
+                        }*/
                     }
                 }
             }

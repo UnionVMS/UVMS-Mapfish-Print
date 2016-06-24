@@ -60,7 +60,7 @@ templates:
             mapping:
               (http)://localhost(:9001)/(.*) : "$1://localhost:8080/$3"
         - !forwardHeaders
-          headers: [Referer, User-Agent]
+          headers: [Referer, User-Agent, Authorization]
     - !reportBuilder
       directory: '.'
     - !createScalebar {}
@@ -135,7 +135,7 @@ templates:
             mapping:
               (http)://localhost(:9001)/(.*) : "$1://localhost:8080/$3"
         - !forwardHeaders
-          headers: [Referer, User-Agent]
+           headers: [Referer, User-Agent, Authorization]
     - !reportBuilder
       directory: '.'
     - !createMap
