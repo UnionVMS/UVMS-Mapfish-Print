@@ -8,7 +8,11 @@ apply plugin: 'docker'
 defaultTasks 'build'
 
 buildscript {
-    repositories { jcenter() }
+    repositories {
+        jcenter()
+        maven {url: "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare/"}
+        maven {url: "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare-snapshots/"}
+    }
     dependencies {
         classpath 'se.transmode.gradle:gradle-docker:1.2'
     }
