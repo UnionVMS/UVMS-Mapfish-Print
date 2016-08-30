@@ -35,6 +35,12 @@ allprojects {
     ext."signing.password" = signing_password
 }
 
+mavenSettings {
+    if (project.property('maven.settings.location')) {
+        userSettingsFileName = project.property('maven.settings.location')
+    }
+}
+
 configure(subprojects.findAll {['core', 'examples', 'docs'].contains(it.name)}) {
     repositories {
         mavenLocal()
@@ -53,6 +59,7 @@ configure(subprojects.findAll {['core', 'examples'].contains(it.name)}) {
     apply plugin: 'idea'
     apply plugin: 'project-report'
     apply plugin: 'checkstyle'
+    apply plugin: 'net.linguica.maven-settings'
 
     jar.dependsOn(checkstyleMain, findbugsMain)
 
