@@ -75,7 +75,7 @@ configurations {
 dependencies {
     def springSecurityVersion = "3.2.5.RELEASE"
     def slf4jVersion = '1.7.6'
-    def usm4uvmsVersion = '2.0.11'
+    def usm4uvmsVersion = '2.+'
 
     compile (
             "org.springframework:spring-context:$project.springVersion",
