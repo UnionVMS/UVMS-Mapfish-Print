@@ -44,8 +44,12 @@ configure(subprojects.findAll {['core', 'examples', 'docs'].contains(it.name)}) 
         maven {url "http://jasperreports.sourceforge.net/maven2"}
         maven {url "https://dl.bintray.com/readytalk/maven"}
         maven {url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts"}
-        maven {url "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare/"}
-        maven {url "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare-snapshots/"}
+        maven {url "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare/"
+            authentication(userName: "emserveje", password: "@rhsJ3nkins")
+        }
+        maven {url "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare-snapshots/"
+            authentication(userName: "emserveje", password: "@rhsJ3nkins")
+        }
     }
 }
 configure(subprojects.findAll {['core', 'examples'].contains(it.name)}) {
