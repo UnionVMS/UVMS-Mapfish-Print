@@ -46,15 +46,15 @@ configure(subprojects.findAll {['core', 'examples', 'docs'].contains(it.name)}) 
         maven {url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts"}
         maven {
             credentials {
-                username: 'emserveje'
-                password: '@rhsJ3nkins'
+                username 'emserveje'
+                password '@rhsJ3nkins'
             }
             url "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare/"
         }
         maven {
             credentials {
-                username: 'emserveje'
-                password: '@rhsJ3nkins'
+                username 'emserveje'
+                password '@rhsJ3nkins'
             }
             url "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare-snapshots/"
         }
