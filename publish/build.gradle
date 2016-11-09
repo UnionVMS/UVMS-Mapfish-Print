@@ -37,7 +37,7 @@ task show << {
 
 def getMavenSettingsCredentials = {
     String userHome = System.getProperty( "user.home" );
-    File mavenSettings = new File(userHome, "/settings.xml")
+    File mavenSettings = new File(userHome, "/.m2/settings.xml")
     def xmlSlurper = new XmlSlurper()
     def output = xmlSlurper.parse(mavenSettings)
     return output."servers"."server"
@@ -125,10 +125,12 @@ if (Boolean.parseBoolean(enablePublishing)) {
 
                 ['lib', 'war', 'cli', 'deb'].each { filterName ->
                     pom(filterName).project {
-                        url 'https://webgate.ec.europa.eu/CITnet/svn/UNIONVMS/trunk/mapfish-print'
+
+                        url 'https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms'
 
                         scm {
-                            developerConnection 'scm:svn:https://webgate.ec.europa.eu/CITnet/svn/UNIONVMS/trunk/mapfish-print'
+                            connection 'scm:git:https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms/uvms-mapfish-print.git'
+                            developerConnection 'scm:git:https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms/uvms-mapfish-print.git'
                         }
 
                         licenses {
