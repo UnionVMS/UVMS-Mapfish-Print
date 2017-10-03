@@ -19,13 +19,15 @@
 
 package org.mapfish.print.servlet.fileloader;
 
-import com.google.common.collect.Iterators;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.net.URI;
 import java.util.Iterator;
-import javax.servlet.ServletContext;
+import java.util.NoSuchElementException;
+
+import com.google.common.collect.Iterators;
+import com.google.common.collect.UnmodifiableListIterator;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * A plugin that loads the config resources from urls starting with prefix:
@@ -50,11 +52,59 @@ public final class ServletConfigFileLoader extends AbstractFileConfigFileLoader 
             String path = fileURI.toString().substring(PREFIX_LENGTH);
             final String realPath = this.servletContext.getRealPath(path);
             if (realPath == null) {
-                return Iterators.emptyIterator();
+                return new UnmodifiableListIterator<File>() {
+                    public boolean hasNext() {
+                        return false;
+                    }
+
+                    public File next() {
+                        throw new NoSuchElementException();
+                    }
+
+                    public boolean hasPrevious() {
+                        return false;
+                    }
+
+                    public File previous() {
+                        throw new NoSuchElementException();
+                    }
+
+                    public int nextIndex() {
+                        return 0;
+                    }
+
+                    public int previousIndex() {
+                        return -1;
+                    }
+                };
             }
             return Iterators.singletonIterator(new File(realPath));
         }
-        return Iterators.emptyIterator();
+        return new UnmodifiableListIterator<File>() {
+            public boolean hasNext() {
+                return false;
+            }
+
+            public File next() {
+                throw new NoSuchElementException();
+            }
+
+            public boolean hasPrevious() {
+                return false;
+            }
+
+            public File previous() {
+                throw new NoSuchElementException();
+            }
+
+            public int nextIndex() {
+                return 0;
+            }
+
+            public int previousIndex() {
+                return -1;
+            }
+        };
     }
 
     @Override
