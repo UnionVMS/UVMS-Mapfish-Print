@@ -46,7 +46,7 @@ def getMavenSettingsCredentials = {
 def getCredentials = {
     def entries = getMavenSettingsCredentials()
     for (entry in entries) {
-        if ( entry."id".text() == "digit-snapshots" ) {
+        if ( entry."id".text() == "focus-releases" ) {
             return [username: entry.username.text(), password: entry.password.text()]
         }
     }
