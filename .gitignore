@@ -17,3 +17,5 @@ generated-gradlew.bat
 projectTests/
 .idea/
 *.iml
+
+.DS_Store

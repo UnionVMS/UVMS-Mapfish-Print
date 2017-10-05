@@ -1,3 +1,44 @@
+import java.util.regex.Matcher
+
+plugins {
+    id 'net.researchgate.release' version '2.4.0'
+}
+
+release {
+    failOnCommitNeeded = true
+    failOnPublishNeeded = true
+    failOnSnapshotDependencies = true
+    failOnUnversionedFiles = true
+    failOnUpdateNeeded = true
+    revertOnFail = true
+    preCommitText = ''
+    preTagCommitMessage = '[Gradle Release Plugin] - pre tag commit: '
+    tagCommitMessage = '[Gradle Release Plugin] - creating tag: '
+    newVersionCommitMessage = '[Gradle Release Plugin] - new version commit: '
+    tagTemplate = '${version}'
+    versionPropertyFile = 'gradle.properties'
+    versionProperties = []
+    buildTasks = ['build']
+    versionPatterns = [
+            // Increments minor number: "2.5.17-SNAPSHOT" => "2.6.0-SNAPSHOT"
+            /[.]*\.(\d+)\.(\d+)[.]*/: { Matcher m, Project p -> m.replaceAll(".${(m[0][1] as int) + 1}.0") }
+    ]
+    scmAdapters = [
+            net.researchgate.release.GitAdapter,
+            net.researchgate.release.SvnAdapter,
+            net.researchgate.release.HgAdapter,
+            net.researchgate.release.BzrAdapter
+    ]
+
+    git {
+        requireBranch = 'dev'
+        pushToRemote = 'origin'
+        pushToBranchPrefix = ''
+        commitVersionFileOnly = false
+    }
+
+}
+
 apply plugin: 'maven'
 
 def distZip = tasks.getByPath(':core:distZip')
@@ -35,24 +76,6 @@ task show << {
     println configurations.archives.files
 }
 
-def getMavenSettingsCredentials = {
-    String userHome = System.getProperty( "user.home" );
-    File mavenSettings = new File(userHome, "/.m2/settings.xml")
-    def xmlSlurper = new XmlSlurper()
-    def output = xmlSlurper.parse(mavenSettings)
-    return output."servers"."server"
-}
-
-def getCredentials = {
-    def entries = getMavenSettingsCredentials()
-    for (entry in entries) {
-        if ( entry."id".text() == "digit-snapshots" ) {
-            return [username: entry.username.text(), password: entry.password.text()]
-        }
-    }
-}
-
-
 /*
  * This upload Archives configuration I took from:
  * http://jedicoder.blogspot.ch/2011/11/automated-gradle-project-deployment-to.html
@@ -60,125 +83,31 @@ def getCredentials = {
  * For deploying see section about "Create a gradle properties file"
  */
 // need to sign jars for uploading releases to maven central
-if (Boolean.parseBoolean(enablePublishing)) {
-    /*apply plugin: 'signing'
-    signing {
-        sign configurations.archives
-    }
-*/
+
     uploadArchives {
-        def creds = getCredentials()
 
         dependsOn tasks.getByPath(':core:test')
         repositories {
             mavenDeployer {
-                repository(url: "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare/") {
-                    authentication(userName: creds["username"], password: creds["password"])
+                repository(url: "http://nexus.focus.fish/nexus/content/repositories/releases/") {
+                    authentication(userName: login, password: password)
                 }
-                snapshotRepository(url: "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare-snapshots/") {
-                    authentication(userName: creds["username"], password: creds["password"])
+                snapshotRepository(url: "http://nexus.focus.fish/nexus/content/repositories/snapshots/") {
+                    authentication(userName: login, password: password)
                 }
-               /* beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }*/
-/*
-                repository(url: "https://$host/service/local/staging/deploy/maven2") {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
-                }
-                snapshotRepository(url: "https://$host/content/repositories/snapshots")  {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
-                    uniqueVersion = false
-                }*/
                 def extAnd = {file, ext ->
                     file.name.endsWith(ext) || file.name.endsWith(".asc") || file.name.endsWith(".pom")
                 }
-                addFilter('lib') { artifact, file ->
-                    artifact.name.contains('print-lib') && extAnd(file, ".jar")
-                }
+
                 addFilter('war') { artifact, file ->
                     artifact.name.contains('print-servlet') && extAnd(file, ".war")
                 }
-                addFilter('cli') { artifact, file ->
-                    artifact.name.contains('print-cli') && (extAnd(file, ".zip") || extAnd(file, ".tar"))
-                }
-                addFilter('deb') { artifact, file ->
-                    artifact.name.contains('print-deb')  && extAnd(file, ".deb")
-                }
 
-                pom('lib').project {
-                    name 'print-lib'
-                    packaging 'jar'
-                    description 'Library for generating PDFs and images from online webmapping services'
-                }
                 pom('war').project {
-                    name 'print-servlet'
+                    name 'mapfish-print'
                     packaging 'war'
                     description 'Web application for generating PDFs and images from online webmapping services'
-                }
-                pom('cli').project {
-                    name 'print-cli'
-                    packaging 'pom'
-                    description 'Application for generating PDFs and images from online webmapping services. All dependencies are included'
-                }
-                pom('deb').project {
-                    name 'print-deb'
-                    description 'Debian package containing Web-application for generating PDFs and images from online webmapping services.'
-                }
-
-                ['lib', 'war', 'cli', 'deb'].each { filterName ->
-                    pom(filterName).project {
-
-                        url 'https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms'
-
-                        scm {
-                            connection 'scm:git:https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms/uvms-mapfish-print.git'
-                            developerConnection 'scm:git:https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms/uvms-mapfish-print.git'
-                        }
-
-                        licenses {
-                            license {
-                                name 'GNU General Public License'
-                                url 'http://www.gnu.org/licenses/#GPL'
-                                distribution 'repo'
-                            }
-                        }
-
-                      /*  developers {
-                            developer {
-                                id 'jesseeichar'
-                                name 'Jesse Eichar'
-                            }
-                            developer {
-                                id 'sbrunner'
-                                name 'Stéphane Brunner'
-                            }
-                            developer {
-                                id 'tsauerwein'
-                                name 'Tobias Sauerwein'
-                            }
-                            developer {
-                                id 'geekdenz'
-                                name 'Tim-Hinnerk Heuer'
-                            }
-                            developer {
-                                id 'miblon'
-                                name 'Milo van der Linden'
-                            }
-                        }
-                         mailingLists {
-                            mailingList {
-                                name ='Users'
-                                subscribe='mapfish-print-users+subscribe@googlegroups.com'
-                                unsubscribe='mapfish-print-users+unsubscribe@googlegroups.com'
-                                post='mapfish-print-users@googlegroups.com'
-                                archive='https://groups.google.com/forum/#!forum/mapfish-print-users'
-                            }
-                        }*/
-                    }
                 }
             }
         }
     }
-} else {
-    uploadArchives << {
-        throw new IllegalStateException("Cannot upload archives because enablePublishing property is not true.  It is $enablePublishing")
-    }
-}
