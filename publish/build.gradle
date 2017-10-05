@@ -108,21 +108,12 @@ if (Boolean.parseBoolean(enablePublishing)) {
         dependsOn tasks.getByPath(':core:test')
         repositories {
             mavenDeployer {
-                repository(url: "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare/") {
-                    authentication(userName: creds["username"], password: creds["password"])
+                repository(url: "hhttp://nexus.focus.fish/nexus/content/repositories/releases/") {
+                    authentication(userName: System.getProperty("login"), password: System.getProperty("password"))
                 }
-                snapshotRepository(url: "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare-snapshots/") {
-                    authentication(userName: creds["username"], password: creds["password"])
+                snapshotRepository(url: "http://nexus.focus.fish/nexus/content/repositories/snapshots/") {
+                    authentication(userName: System.getProperty("login"), password: System.getProperty("password"))
                 }
-               /* beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }*/
-/*
-                repository(url: "https://$host/service/local/staging/deploy/maven2") {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
-                }
-                snapshotRepository(url: "https://$host/content/repositories/snapshots")  {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
-                    uniqueVersion = false
-                }*/
                 def extAnd = {file, ext ->
                     file.name.endsWith(ext) || file.name.endsWith(".asc") || file.name.endsWith(".pom")
                 }
@@ -176,38 +167,6 @@ if (Boolean.parseBoolean(enablePublishing)) {
                                 distribution 'repo'
                             }
                         }
-
-                      /*  developers {
-                            developer {
-                                id 'jesseeichar'
-                                name 'Jesse Eichar'
-                            }
-                            developer {
-                                id 'sbrunner'
-                                name 'Stéphane Brunner'
-                            }
-                            developer {
-                                id 'tsauerwein'
-                                name 'Tobias Sauerwein'
-                            }
-                            developer {
-                                id 'geekdenz'
-                                name 'Tim-Hinnerk Heuer'
-                            }
-                            developer {
-                                id 'miblon'
-                                name 'Milo van der Linden'
-                            }
-                        }
-                         mailingLists {
-                            mailingList {
-                                name ='Users'
-                                subscribe='mapfish-print-users+subscribe@googlegroups.com'
-                                unsubscribe='mapfish-print-users+unsubscribe@googlegroups.com'
-                                post='mapfish-print-users@googlegroups.com'
-                                archive='https://groups.google.com/forum/#!forum/mapfish-print-users'
-                            }
-                        }*/
                     }
                 }
             }
