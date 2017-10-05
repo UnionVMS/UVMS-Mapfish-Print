@@ -25,7 +25,6 @@ task wrapper(type: Wrapper) {
 
 allprojects {
     group = 'eu.europa.ec.fisheries.uvms.mapfish.print'
-    version = '3.9.4'
     ext.junitVersion = "4.11"
     ext.springVersion = "3.2.8.RELEASE"
     ext.jasperReportVersion = "6.1.1"
