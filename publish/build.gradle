@@ -83,22 +83,12 @@ task show << {
  * For deploying see section about "Create a gradle properties file"
  */
 // need to sign jars for uploading releases to maven central
-if (Boolean.parseBoolean(enablePublishing)) {
-    /*apply plugin: 'signing'
-    signing {
-        sign configurations.archives
-    }
-*/
+
     uploadArchives {
 
         dependsOn tasks.getByPath(':core:test')
         repositories {
             mavenDeployer {
-                println("TTTTTTTTTTTT")
-
-                println(login)
-                println(password)
-
                 repository(url: "http://nexus.focus.fish/nexus/content/repositories/releases/") {
                     authentication(userName: login, password: password)
                 }
@@ -108,44 +98,16 @@ if (Boolean.parseBoolean(enablePublishing)) {
                 def extAnd = {file, ext ->
                     file.name.endsWith(ext) || file.name.endsWith(".asc") || file.name.endsWith(".pom")
                 }
-                addFilter('lib') { artifact, file ->
-                    artifact.name.contains('print-lib') && extAnd(file, ".jar")
-                }
+
                 addFilter('war') { artifact, file ->
                     artifact.name.contains('print-servlet') && extAnd(file, ".war")
                 }
-                addFilter('cli') { artifact, file ->
-                    artifact.name.contains('print-cli') && (extAnd(file, ".zip") || extAnd(file, ".tar"))
-                }
-                addFilter('deb') { artifact, file ->
-                    artifact.name.contains('print-deb')  && extAnd(file, ".deb")
-                }
 
-                pom('lib').project {
-                    name 'print-lib'
-                    packaging 'jar'
-                    description 'Library for generating PDFs and images from online webmapping services'
-                }
                 pom('war').project {
                     name 'print-servlet'
                     packaging 'war'
                     description 'Web application for generating PDFs and images from online webmapping services'
                 }
-                pom('cli').project {
-                    name 'print-cli'
-                    packaging 'pom'
-                    description 'Application for generating PDFs and images from online webmapping services. All dependencies are included'
-                }
-                pom('deb').project {
-                    name 'print-deb'
-                    description 'Debian package containing Web-application for generating PDFs and images from online webmapping services.'
-                }
-
             }
         }
     }
-} else {
-    uploadArchives << {
-        throw new IllegalStateException("Cannot upload archives because enablePublishing property is not true.  It is $enablePublishing")
-    }
-}
