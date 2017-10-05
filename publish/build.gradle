@@ -89,8 +89,12 @@ if (Boolean.parseBoolean(enablePublishing)) {
         dependsOn tasks.getByPath(':core:test')
         repositories {
             mavenDeployer {
+                println("TTTTTTTTTTTT")
 
-                repository(url: "hhttp://nexus.focus.fish/nexus/content/repositories/releases/") {
+                println(login)
+                println(password)
+
+                repository(url: "http://nexus.focus.fish/nexus/content/repositories/releases/") {
                     authentication(userName: login, password: password)
                 }
                 snapshotRepository(url: "http://nexus.focus.fish/nexus/content/repositories/snapshots/") {
@@ -112,31 +116,26 @@ if (Boolean.parseBoolean(enablePublishing)) {
                     artifact.name.contains('print-deb')  && extAnd(file, ".deb")
                 }
 
+                pom('lib').project {
+                    name 'print-lib'
+                    packaging 'jar'
+                    description 'Library for generating PDFs and images from online webmapping services'
+                }
                 pom('war').project {
                     name 'print-servlet'
                     packaging 'war'
                     description 'Web application for generating PDFs and images from online webmapping services'
                 }
-
-                ['war'].each { filterName ->
-                    pom(filterName).project {
-
-                        url 'https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms'
-
-                        scm {
-                            connection 'scm:git:https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms/uvms-mapfish-print.git'
-                            developerConnection 'scm:git:https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms/uvms-mapfish-print.git'
-                        }
-
-                        licenses {
-                            license {
-                                name 'GNU General Public License'
-                                url 'http://www.gnu.org/licenses/#GPL'
-                                distribution 'repo'
-                            }
-                        }
-                    }
+                pom('cli').project {
+                    name 'print-cli'
+                    packaging 'pom'
+                    description 'Application for generating PDFs and images from online webmapping services. All dependencies are included'
                 }
+                pom('deb').project {
+                    name 'print-deb'
+                    description 'Debian package containing Web-application for generating PDFs and images from online webmapping services.'
+                }
+                
             }
         }
     }
