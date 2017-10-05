@@ -104,7 +104,7 @@ task show << {
                 }
 
                 pom('war').project {
-                    name 'print-servlet'
+                    name 'mapfish-print'
                     packaging 'war'
                     description 'Web application for generating PDFs and images from online webmapping services'
                 }
