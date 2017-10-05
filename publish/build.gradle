@@ -85,9 +85,11 @@ if (Boolean.parseBoolean(enablePublishing)) {
     }
 */
     uploadArchives {
+
         dependsOn tasks.getByPath(':core:test')
         repositories {
             mavenDeployer {
+
                 repository(url: "hhttp://nexus.focus.fish/nexus/content/repositories/releases/") {
                     authentication(userName: login, password: password)
                 }
@@ -97,15 +99,43 @@ if (Boolean.parseBoolean(enablePublishing)) {
                 def extAnd = {file, ext ->
                     file.name.endsWith(ext) || file.name.endsWith(".asc") || file.name.endsWith(".pom")
                 }
-
+                addFilter('lib') { artifact, file ->
+                    artifact.name.contains('print-lib') && extAnd(file, ".jar")
+                }
                 addFilter('war') { artifact, file ->
                     artifact.name.contains('print-servlet') && extAnd(file, ".war")
+                }
+                addFilter('cli') { artifact, file ->
+                    artifact.name.contains('print-cli') && (extAnd(file, ".zip") || extAnd(file, ".tar"))
+                }
+                addFilter('deb') { artifact, file ->
+                    artifact.name.contains('print-deb')  && extAnd(file, ".deb")
                 }
 
                 pom('war').project {
                     name 'print-servlet'
                     packaging 'war'
                     description 'Web application for generating PDFs and images from online webmapping services'
+                }
+
+                ['war'].each { filterName ->
+                    pom(filterName).project {
+
+                        url 'https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms'
+
+                        scm {
+                            connection 'scm:git:https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms/uvms-mapfish-print.git'
+                            developerConnection 'scm:git:https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms/uvms-mapfish-print.git'
+                        }
+
+                        licenses {
+                            license {
+                                name 'GNU General Public License'
+                                url 'http://www.gnu.org/licenses/#GPL'
+                                distribution 'repo'
+                            }
+                        }
+                    }
                 }
             }
         }
