@@ -108,12 +108,16 @@ if (Boolean.parseBoolean(enablePublishing)) {
         dependsOn tasks.getByPath(':core:test')
         repositories {
             mavenDeployer {
-                println "LOGINLOGINLOGIN" +  args(login)
+                login<<args(login)
+                pass << args(password)
+                System.println(login)
+                System.println(pass)
+
                 repository(url: "hhttp://nexus.focus.fish/nexus/content/repositories/releases/") {
-                    authentication(userName: args(login), password: args(password))
+                    authentication(userName: login, password: pass)
                 }
                 snapshotRepository(url: "http://nexus.focus.fish/nexus/content/repositories/snapshots/") {
-                    authentication(userName: args(login), password: args(password))
+                    authentication(userName: login, password: pass)
                 }
                 def extAnd = {file, ext ->
                     file.name.endsWith(ext) || file.name.endsWith(".asc") || file.name.endsWith(".pom")
