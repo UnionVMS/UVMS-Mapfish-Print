@@ -71,24 +71,6 @@ task show << {
     println configurations.archives.files
 }
 
-def getMavenSettingsCredentials = {
-    String userHome = System.getProperty( "user.home" );
-    File mavenSettings = new File(userHome, "/.m2/settings.xml")
-    def xmlSlurper = new XmlSlurper()
-    def output = xmlSlurper.parse(mavenSettings)
-    return output."servers"."server"
-}
-
-def getCredentials = {
-    def entries = getMavenSettingsCredentials()
-    for (entry in entries) {
-        if ( entry."id".text() == "focus-releases" ) {
-            return [username: entry.username.text(), password: entry.password.text()]
-        }
-    }
-}
-
-
 /*
  * This upload Archives configuration I took from:
  * http://jedicoder.blogspot.ch/2011/11/automated-gradle-project-deployment-to.html
@@ -103,16 +85,9 @@ if (Boolean.parseBoolean(enablePublishing)) {
     }
 */
     uploadArchives {
-        def creds = getCredentials()
-
         dependsOn tasks.getByPath(':core:test')
         repositories {
             mavenDeployer {
-                println("TTTTTTTTTTTT")
-
-                println(login)
-                println(password)
-
                 repository(url: "hhttp://nexus.focus.fish/nexus/content/repositories/releases/") {
                     authentication(userName: login, password: password)
                 }
@@ -122,57 +97,15 @@ if (Boolean.parseBoolean(enablePublishing)) {
                 def extAnd = {file, ext ->
                     file.name.endsWith(ext) || file.name.endsWith(".asc") || file.name.endsWith(".pom")
                 }
-                addFilter('lib') { artifact, file ->
-                    artifact.name.contains('print-lib') && extAnd(file, ".jar")
-                }
+
                 addFilter('war') { artifact, file ->
                     artifact.name.contains('print-servlet') && extAnd(file, ".war")
                 }
-                addFilter('cli') { artifact, file ->
-                    artifact.name.contains('print-cli') && (extAnd(file, ".zip") || extAnd(file, ".tar"))
-                }
-                addFilter('deb') { artifact, file ->
-                    artifact.name.contains('print-deb')  && extAnd(file, ".deb")
-                }
 
-                pom('lib').project {
-                    name 'print-lib'
-                    packaging 'jar'
-                    description 'Library for generating PDFs and images from online webmapping services'
-                }
                 pom('war').project {
                     name 'print-servlet'
                     packaging 'war'
                     description 'Web application for generating PDFs and images from online webmapping services'
-                }
-                pom('cli').project {
-                    name 'print-cli'
-                    packaging 'pom'
-                    description 'Application for generating PDFs and images from online webmapping services. All dependencies are included'
-                }
-                pom('deb').project {
-                    name 'print-deb'
-                    description 'Debian package containing Web-application for generating PDFs and images from online webmapping services.'
-                }
-
-                ['lib', 'war', 'cli', 'deb'].each { filterName ->
-                    pom(filterName).project {
-
-                        url 'https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms'
-
-                        scm {
-                            connection 'scm:git:https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms/uvms-mapfish-print.git'
-                            developerConnection 'scm:git:https://emserveje@webgate.ec.europa.eu/CITnet/stash/scm/unionvms/uvms-mapfish-print.git'
-                        }
-
-                        licenses {
-                            license {
-                                name 'GNU General Public License'
-                                url 'http://www.gnu.org/licenses/#GPL'
-                                distribution 'repo'
-                            }
-                        }
-                    }
                 }
             }
         }
