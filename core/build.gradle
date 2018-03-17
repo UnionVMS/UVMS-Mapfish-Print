@@ -77,7 +77,7 @@ configurations {
 dependencies {
     def springSecurityVersion = "3.2.5.RELEASE"
     def slf4jVersion = '1.7.6'
-    def usm4uvmsVersion = '3.0.9'
+    def usm4uvmsVersion = '4.0.9'
 
     compile (
             "org.springframework:spring-context:$project.springVersion",
@@ -85,14 +85,13 @@ dependencies {
             "org.springframework:spring-webmvc:$project.springVersion",
             "org.springframework.security:spring-security-config:$springSecurityVersion",
             "org.springframework.security:spring-security-web:$springSecurityVersion",
-            "eu.europa.ec.fisheries.uvms:usm4uvms:$usm4uvmsVersion"
     )
 
-    //compile ("eu.europa.ec.fisheries.uvms:usm4uvms:$usm4uvmsVersion") {
-    //   exclude group: 'org.geotools', module: 'gt-geojson'
+    compile ("eu.europa.ec.fisheries.uvms:usm4uvms:$usm4uvmsVersion") {
+       exclude group: 'org.geotools', module: 'gt-geojson'
         //exclude group: 'eu.europa.ec.fisheries.uvms', module: 'uvms-commons'
-//
-   // }
+
+    }
     def metricsVersion = "3.0.2"
     metrics (
             "com.codahale.metrics:metrics-core:$metricsVersion",

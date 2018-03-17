@@ -120,8 +120,7 @@
         <url-pattern>/sec/print/*</url-pattern>
     </servlet-mapping>
 
-
-<!--add USM JWToken validation to restrict the MAPFISH print
+<!--add USM JWToken validation to restrict the MAPFISH print-->
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -130,5 +129,5 @@
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>eu.europa.ec.fisheries.uvms.rest.security.AuthenticationFilter</filter-class>
     </filter>
--->
+
 </web-app>

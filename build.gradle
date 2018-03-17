@@ -50,6 +50,13 @@ configure(subprojects.findAll {['core', 'examples', 'docs'].contains(it.name)}) 
             }
             url "http://nexus.focus.fish/nexus/content/repositories/releases/"
         }
+        maven {
+            credentials {
+                username 'emserveje'
+                password '@rhsJ3nkins'
+            }
+            url "https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/mare-snapshots/"
+        }
     }
 }
 configure(subprojects.findAll {['core', 'examples'].contains(it.name)}) {
