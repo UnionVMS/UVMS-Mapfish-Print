@@ -85,13 +85,14 @@ dependencies {
             "org.springframework:spring-webmvc:$project.springVersion",
             "org.springframework.security:spring-security-config:$springSecurityVersion",
             "org.springframework.security:spring-security-web:$springSecurityVersion",
+            "eu.europa.ec.fisheries.uvms:usm4uvms:$usm4uvmsVersion"
     )
 
     //compile ("eu.europa.ec.fisheries.uvms:usm4uvms:$usm4uvmsVersion") {
     //   exclude group: 'org.geotools', module: 'gt-geojson'
-    //    //exclude group: 'eu.europa.ec.fisheries.uvms', module: 'uvms-commons'
-
-    //}
+        //exclude group: 'eu.europa.ec.fisheries.uvms', module: 'uvms-commons'
+//
+   // }
     def metricsVersion = "3.0.2"
     metrics (
             "com.codahale.metrics:metrics-core:$metricsVersion",
