@@ -19,3 +19,5 @@ projectTests/
 *.iml
 
 .DS_Store
+
+target/
