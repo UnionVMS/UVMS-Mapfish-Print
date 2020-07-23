@@ -234,11 +234,10 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param statusResponse the response object
      */
     @RequestMapping(value = "/{appId}" + STATUS_URL + "/{referenceId:\\S+}.json", method = RequestMethod.GET)
-    public final void getStatusSpecificAppId(
-            @PathVariable final String referenceId,
-            @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
-            final HttpServletRequest statusRequest,
-            final HttpServletResponse statusResponse) {
+    public final void getStatusSpecificAppId(@PathVariable("referenceId") final String referenceId,
+                                             @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
+                                             final HttpServletRequest statusRequest,
+                                             final HttpServletResponse statusResponse) {
         getStatus(referenceId, jsonpCallback, statusRequest, statusResponse);
     }
     /**
@@ -254,11 +253,10 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param statusResponse the response object
      */
     @RequestMapping(value = STATUS_URL + "/{referenceId:\\S+}.json", method = RequestMethod.GET)
-    public final void getStatus(
-            @PathVariable final String referenceId,
-            @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
-            final HttpServletRequest statusRequest,
-            final HttpServletResponse statusResponse) {
+    public final void getStatus(@PathVariable("referenceId") final String referenceId,
+                                @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
+                                final HttpServletRequest statusRequest,
+                                final HttpServletResponse statusResponse) {
         PrintWriter writer = null;
         try {
             JobStatus status = this.jobManager.getStatus(referenceId);
@@ -307,9 +305,8 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param statusResponse the response object
      */
     @RequestMapping(value = "/{appId}" + CANCEL_URL + "/{referenceId:\\S+}", method = RequestMethod.DELETE)
-    public final void cancelSpecificAppId(
-            @PathVariable final String referenceId,
-            final HttpServletResponse statusResponse) {
+    public final void cancelSpecificAppId(@PathVariable("referenceId") final String referenceId,
+                                          final HttpServletResponse statusResponse) {
         cancel(referenceId, statusResponse);
     }
 
@@ -323,9 +320,8 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param statusResponse the response object
      */
     @RequestMapping(value = CANCEL_URL + "/{referenceId:\\S+}", method = RequestMethod.DELETE)
-    public final void cancel(
-            @PathVariable final String referenceId,
-            final HttpServletResponse statusResponse) {
+    public final void cancel(@PathVariable("referenceId") final String referenceId,
+                             final HttpServletResponse statusResponse) {
         try {
             this.jobManager.cancel(referenceId);
         } catch (NoSuchReferenceException e) {
@@ -343,8 +339,8 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param createReportResponse the response object
      */
     @RequestMapping(value = "/{appId}" + REPORT_URL + ".{format:\\w+}", method = RequestMethod.POST)
-    public final void createReport(@PathVariable final String appId,
-                                   @PathVariable final String format,
+    public final void createReport(@PathVariable("appId") final String appId,
+                                   @PathVariable("format") final String format,
                                    @RequestBody final String requestData,
                                    final HttpServletRequest createReportRequest,
                                    final HttpServletResponse createReportResponse) throws JSONException, NoSuchAppException {
@@ -386,9 +382,9 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param getReportResponse the response object
      */
     @RequestMapping(value = "/{appId}" + REPORT_URL + "/{referenceId:\\S+}", method = RequestMethod.GET)
-    public final void getReportSpecificAppId(@PathVariable final String referenceId,
-                                @RequestParam(value = "inline", defaultValue = "false") final boolean inline,
-                                final HttpServletResponse getReportResponse)
+    public final void getReportSpecificAppId(@PathVariable("referenceId") final String referenceId,
+                                             @RequestParam(value = "inline", defaultValue = "false") final boolean inline,
+                                             final HttpServletResponse getReportResponse)
             throws IOException, ServletException {
         getReport(referenceId, inline, getReportResponse);
     }
@@ -400,7 +396,7 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param getReportResponse the response object
      */
     @RequestMapping(value = REPORT_URL + "/{referenceId:\\S+}", method = RequestMethod.GET)
-    public final void getReport(@PathVariable final String referenceId,
+    public final void getReport(@PathVariable("referenceId") final String referenceId,
                                 @RequestParam(value = "inline", defaultValue = "false") final boolean inline,
                                 final HttpServletResponse getReportResponse)
             throws IOException, ServletException {
@@ -448,7 +444,7 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param createReportResponse the response object
      */
     @RequestMapping(value = REPORT_URL + ".{format:\\w+}", method = RequestMethod.POST)
-    public final void createReport(@PathVariable final String format,
+    public final void createReport(@PathVariable("format") final String format,
                                    @RequestBody final String requestData,
                                    final HttpServletRequest createReportRequest,
                                    final HttpServletResponse createReportResponse) throws JSONException, NoSuchAppException {
@@ -469,8 +465,8 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param createReportResponse the response object
      */
     @RequestMapping(value = "/{appId}" + CREATE_AND_GET_URL + ".{format:\\w+}", method = RequestMethod.POST)
-    public final void createReportAndGet(@PathVariable final String appId,
-                                         @PathVariable final String format,
+    public final void createReportAndGet(@PathVariable("appId") final String appId,
+                                         @PathVariable("format") final String format,
                                          @RequestBody final String requestData,
                                          @RequestParam(value = "inline", defaultValue = "false") final boolean inline,
                                          final HttpServletRequest createReportRequest,
@@ -536,7 +532,7 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param createReportResponse the response object
      */
     @RequestMapping(value = CREATE_AND_GET_URL + ".{format:\\w+}", method = RequestMethod.POST)
-    public final void createReportAndGetNoAppId(@PathVariable final String format,
+    public final void createReportAndGetNoAppId(@PathVariable("format") final String format,
                                                 @RequestBody final String requestData,
                                                 @RequestParam(value = "inline", defaultValue = "false") final boolean inline,
                                                 final HttpServletRequest createReportRequest,
@@ -555,10 +551,8 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param listAppsResponse the response object
      */
     @RequestMapping(value = LIST_APPS_URL, method = RequestMethod.GET)
-    public final void listAppIds(
-            @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
-            final HttpServletResponse listAppsResponse) throws ServletException,
-            IOException {
+    public final void listAppIds(@RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
+                                 final HttpServletResponse listAppsResponse) throws ServletException, IOException {
         Set<String> appIds = this.printerFactory.getAppIds();
 
         setContentType(listAppsResponse, jsonpCallback);
@@ -594,11 +588,9 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param capabilitiesResponse the response object
      */
     @RequestMapping(value = CAPABILITIES_URL, method = RequestMethod.GET)
-    public final void getCapabilities(
-            @RequestParam(value = "pretty", defaultValue = "false") final boolean pretty,
-            @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
-            final HttpServletResponse capabilitiesResponse) throws ServletException,
-            IOException, JSONException {
+    public final void getCapabilities(@RequestParam(value = "pretty", defaultValue = "false") final boolean pretty,
+                                      @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
+                                      final HttpServletResponse capabilitiesResponse) throws ServletException, IOException, JSONException {
         getCapabilities(DEFAULT_CONFIGURATION_FILE_KEY, pretty, jsonpCallback, capabilitiesResponse);
     }
 
@@ -611,12 +603,10 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param capabilitiesResponse the response object
      */
     @RequestMapping(value = "/{appId:\\w+}" + CAPABILITIES_URL, method = RequestMethod.GET)
-    public final void getCapabilities(
-            @PathVariable final String appId,
-            @RequestParam(value = "pretty", defaultValue = "false") final boolean pretty,
-            @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
-            final HttpServletResponse capabilitiesResponse) throws ServletException,
-            IOException, JSONException {
+    public final void getCapabilities(@PathVariable(value = "appId") final String appId,
+                                      @RequestParam(value = "pretty", defaultValue = "false") final boolean pretty,
+                                      @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
+                                      final HttpServletResponse capabilitiesResponse) throws ServletException, IOException, JSONException {
         MapPrinter printer;
         try {
             printer = this.printerFactory.create(appId);
@@ -691,9 +681,8 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param getExampleResponse the response object
      */
     @RequestMapping(value = EXAMPLE_REQUEST_URL, method = RequestMethod.GET)
-    public final void getExampleRequest(
-            @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
-            final HttpServletResponse getExampleResponse) throws ServletException, IOException {
+    public final void getExampleRequest(@RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
+                                        final HttpServletResponse getExampleResponse) throws ServletException, IOException {
         getExampleRequest(DEFAULT_CONFIGURATION_FILE_KEY, jsonpCallback, getExampleResponse);
     }
 
@@ -706,11 +695,9 @@ public class MapPrinterServlet extends BaseMapServlet {
      * @param getExampleResponse the response object
      */
     @RequestMapping(value = "{appId}" + EXAMPLE_REQUEST_URL, method = RequestMethod.GET)
-    public final void getExampleRequest(
-            @PathVariable final String appId,
-            @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
-            final HttpServletResponse getExampleResponse) throws ServletException,
-            IOException {
+    public final void getExampleRequest(@PathVariable("appId") final String appId,
+                                        @RequestParam(value = "jsonp", defaultValue = "") final String jsonpCallback,
+                                        final HttpServletResponse getExampleResponse) throws ServletException, IOException {
 
         PrintWriter writer = null;
         try {
