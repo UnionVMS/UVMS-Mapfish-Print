@@ -28,7 +28,7 @@
 
         <!-- UVMS Libraries -->
         <uvms.config.version>4.2-SNAPSHOT</uvms.config.version>
-        <usm4uvms.version>4.0.15.1-SNAPSHOT</usm4uvms.version>
+        <usm4uvms.version>4.0.15.1-MARE-SNAPSHOT</usm4uvms.version>
         <uvms.commons.version>3.4-SNAPSHOT</uvms.commons.version>
     </properties>
 
