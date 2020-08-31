@@ -162,7 +162,7 @@ public final class GeoJsonLayer extends AbstractFeatureSourceLayer {
                 Property popupX = feature.getProperty("popupX");
                 Property popupY = feature.getProperty("popupY");
 
-                if (showPopupProperty != null && showPopupProperty.getValue() instanceof Boolean && !((Boolean)showPopupProperty.getValue())) {
+                if (showPopupProperty != null && showPopupProperty.getValue() instanceof Boolean && !((Boolean)showPopupProperty.getValue()) && popupX != null && popupY != null) {
                     GeoJsonParam geoJsonParam = (GeoJsonParam)this.params;
                     List<String> popupLines = new ArrayList<>();
                     StringBuilder buffer = new StringBuilder();
