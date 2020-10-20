@@ -84,9 +84,11 @@ public final class GridLayer implements MapLayer {
     public void render(final Graphics2D graphics, final MfClientHttpRequestFactory clientHttpRequestFactory,
                        final MapfishMapContext transformer, final boolean isFirstLayer) {
         Graphics2D graphics2D = (Graphics2D) graphics.create();
-        int haloRadius = this.params.haloRadius;
+        int haloRadius = 0; //this.params.haloRadius;
         double dpiScaling = transformer.getDPI() / Constants.PDF_DPI;
-
+        if (dpiScaling > 2.0) {
+            dpiScaling = dpiScaling * 0.7;
+        }
         this.grid.render(graphics2D, clientHttpRequestFactory, transformer, isFirstLayer);
         Font baseFont = null;
         for (String fontName : this.params.font.name) {
