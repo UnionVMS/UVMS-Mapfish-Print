@@ -433,14 +433,24 @@ public final class MapfishJsonStyleParserPlugin implements StyleParserPlugin {
             Style parseStyle(final PJsonObject json,
                              final StyleBuilder styleBuilder,
                              final Configuration configuration) {
-                return new MapfishJsonStyleVersion1(json, styleBuilder, configuration, DEFAULT_GEOM_ATT_NAME).parseStyle();
+                Style style = new MapfishJsonStyleVersion1(json, styleBuilder, configuration, DEFAULT_GEOM_ATT_NAME).parseStyle();
+                if (json.has("type") && json.getString("type").equals("line") && json.toString().contains("speedOverGround")) {
+                    style.featureTypeStyles().forEach(s -> s.rules()
+                                    .forEach(r -> r.symbolizers().removeIf(sym -> sym.toString().contains("#FFF"))));
+                }
+                return style;
             }
         }, TWO("2") {
             @Override
             Style parseStyle(final PJsonObject json,
                              final StyleBuilder styleBuilder,
                              final Configuration configuration) {
-                return new MapfishJsonStyleVersion2(json, styleBuilder, configuration).parseStyle();
+                Style style = new MapfishJsonStyleVersion2(json, styleBuilder, configuration).parseStyle();
+                if (json.has("type") && json.getString("type").equals("line") && json.toString().contains("speedOverGround")) {
+                    style.featureTypeStyles().forEach(s -> s.rules()
+                                    .forEach(r -> r.symbolizers().removeIf(sym -> sym.toString().contains("#FFF"))));
+                }
+                return style;
             }
         };
         private final String versionNumber;

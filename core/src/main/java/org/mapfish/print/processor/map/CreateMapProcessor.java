@@ -248,7 +248,11 @@ public final class CreateMapProcessor extends AbstractProcessor<CreateMapProcess
         // higher DPI printer
         final double dpiRatio = dpi / dpiOfRequestor;
         paintArea.setBounds(0, 0, (int) (mapSize.getWidth() * dpiRatio), (int) (mapSize.getHeight() * dpiRatio));
-
+        if (dpiRatio > 2.0) {
+            paintArea.setBounds(0, 0, (int) (mapSize.getWidth() * dpiRatio * 0.5), (int) (mapSize.getHeight() * dpiRatio * 0.5));
+        } else {
+            paintArea.setBounds(0, 0, (int) (mapSize.getWidth() * dpiRatio), (int) (mapSize.getHeight() * dpiRatio));
+        }
         MapBounds bounds = mapValues.getMapBounds();
         bounds = adjustBoundsToScaleAndMapSize(mapValues, dpi, paintArea, bounds);
 

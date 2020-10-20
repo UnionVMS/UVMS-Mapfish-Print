@@ -40,7 +40,7 @@ import java.util.IllegalFormatException;
  */
 public final class GridParam extends AbstractLayerParams {
     private static final int DEFAULT_POINTS_IN_GRID_LINE = 10000;
-    private static final int DEFAULT_HALO_RADIUS = 2;
+    private static final int DEFAULT_HALO_RADIUS = 1;
     private static final int DEFAULT_INDENT = 5;
     private static final String DEFAULT_HALO_COLOR = "#FFF";
     private static final String DEFAULT_LABEL_COLOR = "#444";

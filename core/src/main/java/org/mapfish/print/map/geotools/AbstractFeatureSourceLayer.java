@@ -96,6 +96,9 @@ public abstract class AbstractFeatureSourceLayer extends AbstractGeotoolsLayer {
         if (mapContext.isDpiSensitiveStyle() && mapContext.getDPI() > mapContext.getRequestorDPI()) {
             // rescale styles for a higher dpi print
             double scaleFactor = mapContext.getDPI() / mapContext.getRequestorDPI();
+            if (scaleFactor > 2) {
+                scaleFactor = scaleFactor * 0.5;
+            }
             RescaleStyleVisitor scale = new RescaleStyleVisitor(scaleFactor);
             style.accept(scale);
             style = (Style) scale.getCopy();
