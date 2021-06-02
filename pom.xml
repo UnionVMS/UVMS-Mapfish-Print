@@ -20,7 +20,7 @@
     <properties>
         <version.java>1.8</version.java>
 
-        <version.geotools>11.0</version.geotools>
+        <version.geotools>19.4</version.geotools>
         <version.metrics>3.0.2</version.metrics>
         <version.slf4j>1.7.6</version.slf4j>
         <version.spring>3.2.8.RELEASE</version.spring>
