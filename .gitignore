@@ -21,3 +21,4 @@ projectTests/
 .DS_Store
 
 target/
+**/.flattened-pom.xml

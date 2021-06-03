@@ -2,15 +2,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fish.focus.uvms.maven</groupId>
-        <artifactId>uvms-pom</artifactId>
+        <groupId>eu.europa.ec.fisheries.uvms</groupId>
+        <artifactId>mare-pom</artifactId>
+        <version>1.6.0-MARE-SNAPSHOT</version>
         <relativePath />
-        <version>1.21</version>
     </parent>
 
     <groupId>eu.europa.ec.fisheries.uvms.mapfish.print</groupId>
     <artifactId>mapfish-print-parent</artifactId>
-    <version>3.6-SNAPSHOT</version>
+    <version>${uvms.mapfish.print.version}</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -19,17 +19,11 @@
 
     <properties>
         <version.java>1.8</version.java>
-
         <version.geotools>19.4</version.geotools>
         <version.metrics>3.0.2</version.metrics>
         <version.slf4j>1.7.6</version.slf4j>
         <version.spring>3.2.8.RELEASE</version.spring>
         <version.spring-security>3.2.5.RELEASE</version.spring-security>
-
-        <!-- UVMS Libraries -->
-        <uvms.config.version>4.2-SNAPSHOT</uvms.config.version>
-        <usm4uvms.version>4.0.15.1-MARE-SNAPSHOT</usm4uvms.version>
-        <uvms.commons.version>3.4-SNAPSHOT</uvms.commons.version>
     </properties>
 
     <repositories>
@@ -90,7 +84,7 @@
             <dependency>
                 <groupId>eu.europa.ec.fisheries.uvms</groupId>
                 <artifactId>usm4uvms</artifactId>
-                <version>${usm4uvms.version}</version>
+                <version>${uvms.uvms4usm.version}</version>
             </dependency>
 
             <!-- OTHER -->
