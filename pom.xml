@@ -41,6 +41,11 @@
                 <updatePolicy>interval:20160</updatePolicy><!-- 2 weeks in minutes -->
             </releases>
         </repository>
+        <repository>
+            <id>pentaho-repo</id>
+            <name>pentaho-repo</name>
+            <url>https://public.nexus.pentaho.org/content/groups/omni/</url>
+        </repository>
     </repositories>
 
     <dependencyManagement>
